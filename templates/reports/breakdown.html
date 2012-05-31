@@ -1,0 +1,88 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}{{title}}{% endblock %}
+{% block pagetitle %}{{title}}{% endblock %}
+{% block content %}
+<a href="{{url}}" class="btn btn-info">Download</a><br />
+<h3>Team Totals</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Applications</th>
+			<th>Call Time</th>
+			<th>Call Attempts</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for key,value in team.items %}
+		<tr>
+			<td>{{key}}</td>
+			{% for each in value %}
+				{% if forloop.counter == 1 %}
+				<td>{{each|floatformat:2}}</td>
+				{% else %}
+				<td>{{each}}</td>
+				{% endif %}
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Call Time</th>
+			<th>Call Attempts</th>
+			<th>Applications</th>
+			<th>FTE Apps</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for key,value in agentaveragelist.items %}
+		<tr>
+			<td>{{key}}</td>
+			{% for each in value %}
+				{% if forloop.counter == 4 %}
+				<td>{{each|floatformat:2}}</td>
+				{% else %}
+				<td>{{each}}</td>
+				{% endif %}
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<h3>Agent Performance Breakdown</h3>
+{% for key,value in agentstats.items %}
+<h4>{{key}}</h4>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Call Time</th>
+			<th>Call Attempts</th>
+			<th>Applications</th>
+			<th>Productive Hours</th>
+			<th>Sick Hours</th>
+			<th>Holiday Hours</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for each in value %}
+		<tr>
+			<td>{{each.0}}</td>
+			<td>{{each.1|humantime}}</td>
+			<td>{{each.2|floatformat:0}}</td>
+			<td>{{each.3}}</td>
+			<td>{{each.4|floatformat:2}} {{each.7}}</td>
+			<td>{{each.5}}</td>
+			<td>{{each.6}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endfor %}
+{% endblock %}

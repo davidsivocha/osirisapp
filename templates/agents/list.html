@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}Agent List{% endblock %}
+{% block pagetitle %}Agent List{% endblock %}
+{% block content %}{{error}}
+<h2>Active Agents</h2>
+{% if active %}
+    {% for Agent in active %}
+		<a href="/agent/{{ Agent.slug }}/" class="btn btn-primary agent">{{ Agent.name }}</a>
+    {% endfor %}
+{% else %}
+    <p>No Active Agents are available.</p>
+{% endif %}
+{% endblock %}
+{% block contenttwo %}
+<h2>Inactive Agents</h2>
+{% if inactive %}
+    {% for Agent in inactive %}
+        <a href="/agent/{{ Agent.slug }}/" class="btn btn-danger agent">{{ Agent.name }}</a>
+    {% endfor %}
+{% else %}
+    <p>No inactive Agents are available.</p>
+{% endif %}
+{% endblock %}

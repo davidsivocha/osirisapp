@@ -1,0 +1,15 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}{% endblock %}
+{% block extrascripts %}{% endblock %}
+{% block title %}Bad Permissions{% endblock %}
+{% block pagetitle %}Bad Permissions{% endblock %}
+{% block smalltitle %}{% endblock %}
+{% block content %}
+<h1>Sorry Chief!</h1>
+<p>It looks like you are trying to access a page which you aren't allowed to see!</p>
+<p>If you think you are seeing this in error, let the admin team know!</p>
+<hr/> 
+<p>The address you were trying to access was: <b>{{ currenturl }}</b></p>
+{% endblock %}

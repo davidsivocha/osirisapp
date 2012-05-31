@@ -1,0 +1,13 @@
+{% extends 'base-site.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block page %}
+        <div class="row">
+          <div class="span9">
+            {% block content %}{% endblock %}
+          </div>
+          <div class="span3">
+           {% block contenttwo %}{% endblock %}
+          </div>
+        </div>
+{% endblock %}

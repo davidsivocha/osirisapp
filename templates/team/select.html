@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrascripts %}
+<script src="{{STATIC_URL}}js/highcharts.src.js" type="text/javascript"></script>
+{% endblock %}
+{% block title %}Team List{% endblock %}
+{% block pagetitle %}Team List{% endblock %}
+{% block content %}{{error}}
+<ul class="tabs nav nav-tabs">
+	<li data-toggle="tab" class="active"><a href="#personalbests">Call Time</a></li>
+	<li data-toggle="tab"><a href="#training">Call Attempts</a></li>
+	<li data-toggle="tab"><a href="#sickhol">Apps</a></li>
+	<li data-toggle="tab"><a href="#achievewarn">Volume</a></li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active" id="personalbests">
+		<div id="ctchart"></div>
+		<table id="cttable" class="datatable table table-bordered table-striped ">
+			<thead>
+				<tr>
+					<th></th>
+					{% for team in chart_list %}
+					<th>{{team}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for key,value in cttable.items %}
+				<tr>
+					<th>{{key}}</th>
+					{% for stat in value %}
+					<td>{{stat|floatformat:0}}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div id="training" class="tab-pane">
+		<div id="cachart"></div>
+		<table id="catable" class="datatable table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					{% for team in chart_list %}
+					<th>{{team}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for key,value in catable.items %}
+				<tr>
+					<th>{{key}}</th>
+					{% for stat in value %}
+					<td>{{stat|floatformat:0}}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div id="sickhol" class="tab-pane">
+		<div id="appschart"></div>
+		<table id="appstable" class="datatable table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					{% for team in chart_list %}
+					<th>{{team}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for key,value in appstable.items %}
+				<tr>
+					<th>{{key}}</th>
+					{% for stat in value %}
+					<td>{{stat}}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div id="achievewarn" class="tab-pane">
+		<div id="volchart"></div>
+      <table id="voltable" class="datatable table table-bordered table-striped ">
+         <thead>
+            <tr>
+               <th></th>
+               {% for team in chart_list %}
+               <th>{{team}}</th>
+               {% endfor %}
+            </tr>
+         </thead>
+         <tbody>
+         {% for key,value in voltable.items %}
+            <tr>
+               <th>{{key}}</th>
+               {% for stat in value %}
+               <td>{{stat}}</td>
+               {% endfor %}
+            </tr>
+         {% endfor %}
+         </tbody>
+      </table>
+	</div>
+</div>
+{% endblock %}
+{% block contenttwo %}
+<h2>Teams</h2>
+{% if team_list %}
+    {% for Teams in team_list %}
+        <h3><a href="/team/{{ Teams.slug }}/">{{ Teams.name }}</a></h3>
+    {% endfor %}
+{% else %}
+    <p>No Teams are available.</p>
+{% endif %}
+{% endblock %}
+{% block highcharts %}
+<script type="text/javascript">
+Highcharts.visualize = function(table, options) {
+   // the categories
+   options.xAxis.categories = [];
+   $('tbody th', table).each( function(i) {
+      options.xAxis.categories.push(this.innerHTML);
+   });
+   
+   // the data series
+   options.series = [];
+   $('tr', table).each( function(i) {
+      var tr = this;
+      $('th, td', tr).each( function(j) {
+         if (j > 0) { // skip first column
+            if (i == 0) { // get the name and init the series
+               options.series[j - 1] = { 
+                  name: this.innerHTML,
+                  data: []
+               };
+            } else { // add values
+               options.series[j - 1].data.push(parseFloat(this.innerHTML));
+            }
+         }
+      });
+   });
+   
+   var chart = new Highcharts.Chart(options);
+}
+   
+// On document ready, call visualize on the datatable.
+$(document).ready(function() {         
+   var calltime = document.getElementById('cttable'),
+   ctoptions = {
+         chart: {
+            renderTo: 'ctchart',
+            defaultSeriesType: 'line',
+			width:700,
+			zoomType: 'x'
+         },
+         title: {
+            text: 'Call Time Averages by Team '
+         },
+         xAxis: {
+			title: {
+               text: 'Weeks'
+            }
+         },
+         yAxis: {
+            title: {
+               text: 'Minutes'
+            }
+         },
+         tooltip: {
+            formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+
+                  this.y +' minutes';
+            }
+         }
+      };
+	  
+	var callattempts = document.getElementById('catable'),
+	caoptions = {
+         chart: {
+            renderTo: 'cachart',
+            defaultSeriesType: 'line',
+			width:700,
+			zoomType: 'x'
+         },
+         title: {
+            text: 'Call Attempt Averages by Team '
+         },
+         xAxis: {
+			title: {
+               text: 'Weeks'
+            }
+         },
+         yAxis: {
+            title: {
+               text: 'Call Attempts'
+            }
+         },
+         tooltip: {
+            formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+
+                  this.y +' attempts';
+            }
+         }
+      };
+	  var apps = document.getElementById('appstable'),
+	appsoptions = {
+         chart: {
+            renderTo: 'appschart',
+            defaultSeriesType: 'column',
+			width:700,
+			zoomType: 'x'
+         },
+         title: {
+            text: 'Applications by Team '
+         },
+         xAxis: {
+			title: {
+               text: 'Weeks'
+            }
+         },
+         yAxis: {
+            title: {
+               text: 'Applications'
+            }
+         },
+         tooltip: {
+            formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+
+                  this.y +' Applications';
+            }
+         }
+      };
+
+      var vol = document.getElementById('voltable'),
+   voloptions = {
+         chart: {
+            renderTo: 'volchart',
+            defaultSeriesType: 'line',
+         width:700,
+         zoomType: 'xy'
+         },
+         title: {
+            text: 'Total Volume by Team '
+         },
+         xAxis: {
+         title: {
+               text: 'Months'
+            },
+            labels: {
+            rotation: -45,
+            align: 'right',
+            style: {
+               font: 'normal 13px Verdana, sans-serif'
+            }
+         },
+         },
+         yAxis: {
+            title: {
+               text: 'Litres'
+            }
+         },
+         tooltip: {
+            formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+
+                  this.y +' Litres';
+            }
+         }
+      };
+                     
+   Highcharts.visualize(calltime, ctoptions);
+   Highcharts.visualize(callattempts, caoptions);
+   Highcharts.visualize(apps, appsoptions);
+   Highcharts.visualize(vol, voloptions);
+});
+</script> 
+{% endblock %}

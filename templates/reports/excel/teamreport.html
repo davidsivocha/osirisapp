@@ -1,0 +1,66 @@
+{% load osiris_extras %}
+{% load humanize %}
+<h3>Team Totals</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Total</th>
+			<th>Daily Average</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Call Time</td>
+			<td>{{totals.calltime__sum|humantime}}</td>
+			<td>{{average.calltime|humantime}}</td>
+		</tr>
+		<tr>
+			<td>Call Attempts</td>
+			<td>{{totals.callattempts__sum}}</td>
+			<td>{{average.callattempts}}</td>
+		</tr>
+		<tr>
+			<td>Applications</td>
+			<td>{{totals.totalapps__sum}}</td>
+			<td>{{average.apps|floatformat:2}}</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Agent Average Performance</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Agent</th>
+			<th>Call Time</th>
+			<th>Call Attempts</th>
+			<th>Applications</th>
+			<th>Total Applications</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for key,value in agentaverage.items %}
+		<tr>
+			<td>{{key}}</td>
+			{% for each in value %}
+			<td>{{each.0|humantime}}</td>
+			<td>{{each.1}}</td>
+			<td>{{each.2|floatformat:2}}</td>
+			<td>{{each.3}}</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<h3>Qualified Apps</h3>
+<table class="table table-bordered table-striped">
+	<thead><tr>
+		<td>Agent</td><td>Apps</td>
+	</tr></thead>
+	<tbody>
+	{% for agent in qapps %}
+		<tr><td>{{agent.0}}</td><td>{{agent.1}}</td></tr>
+	{% endfor %}
+	</tbody>
+</table>
+

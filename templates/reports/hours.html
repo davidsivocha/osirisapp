@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}{{title}}{% endblock %}
+{% block pagetitle %}{{title}}{% endblock %}
+{% block content %}
+{% for key,value in eachteam.items %}
+<h3>{{key}}</h3>
+<table class="table table-bordered table-striped">
+	<thead><tr>
+		<td>{{key}}</td><td>Date</td><td>Hours</td>
+	</tr></thead>
+	<tbody>
+{% for team in value %}
+		<tr>
+			<td>{{team.0}}</td>
+			<td>{{team.1}}</td>
+			<td>{{team.2|floatformat:2}}</td>
+		</tr>
+{% endfor %}
+	</tbody>
+</table>
+{% endfor %}
+{% endblock %}
+{% block contenttwo %}
+<a href="/reports/" class="btn btn-info">Back</a><br />
+<hr />
+<h1>Hours Reports</h1>
+<form class="" id="hours-review">
+	<select id="hours-type">
+		<option value="other">Other Hours</option>
+		<option value="sick">Sick Hours</option>
+		<option value="hol">Holiday Hours</option>
+	</select>
+	<label>Start Date
+	<input type="text" id="hours-startdate" placeholder="Year" value="{% current_time "%Y" %}">
+	</label>
+	<label>End Date
+	<input type="text" id="hours-enddate" placeholder="Year" value="{% current_time "%Y" %}">
+	</label>
+	<button type="submit" class="btn btn-inverse">Hours Report <i class="icon-time icon-white"></i></button>
+</form>
+{% endblock %}
+{% block highcharts %}
+<script>
+	$("#hours-review").submit(function() {
+		$url = "{% print_site_url %}reports/hours/"+$('#hours-type').val()+"/"+$('#hours-startdate').val()+"/"+$('#hours-enddate').val();
+		window.location = $url;
+		return false;
+	});
+</script>
+{% endblock %}
+

@@ -1,0 +1,969 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Coa",
+				"CoachingAndCompliance"
+			],
+			[
+				"Fo",
+				"ForeignKey"
+			],
+			[
+				"total",
+				"totalvolume"
+			],
+			[
+				"assigne",
+				"assigned_to"
+			],
+			[
+				"assign",
+				"assigned_to"
+			],
+			[
+				"qual",
+				"qualifiedapps__sum"
+			],
+			[
+				"agen",
+				"agentstats"
+			],
+			[
+				"assigned",
+				"assigned"
+			],
+			[
+				"assig",
+				"assigned"
+			],
+			[
+				"ma",
+				"mark_closed"
+			],
+			[
+				"age",
+				"Agents"
+			],
+			[
+				"mon",
+				"monthtodate"
+			],
+			[
+				"month",
+				"monthtodate"
+			],
+			[
+				"week",
+				"weektodate"
+			],
+			[
+				"qua",
+				"qualifiedapps"
+			],
+			[
+				"quali",
+				"qualified"
+			],
+			[
+				"other",
+				"otherchart"
+			],
+			[
+				"oth",
+				"otherhourtable"
+			],
+			[
+				"v",
+				"volumetable"
+			],
+			[
+				"tot",
+				"totalappschart"
+			],
+			[
+				"tota",
+				"totalvolume"
+			],
+			[
+				"team",
+				"team_list"
+			],
+			[
+				"apps",
+				"appsavg"
+			],
+			[
+				"call",
+				"callattemptsavg"
+			],
+			[
+				"prodhours",
+				"prodhours__sum"
+			],
+			[
+				"tar",
+				"targets"
+			],
+			[
+				"tea",
+				"team_list"
+			],
+			[
+				"teaM",
+				"teamlist"
+			],
+			[
+				"volume",
+				"volumemonths"
+			],
+			[
+				"fte",
+				"fteapplicationweeks"
+			],
+			[
+				"today",
+				"todaymonth"
+			],
+			[
+				"star",
+				"starting"
+			],
+			[
+				"vol",
+				"volsum"
+			],
+			[
+				"qap",
+				"qappsum"
+			],
+			[
+				"weekl",
+				"WeeklyStats"
+			],
+			[
+				"wstats",
+				"WstatsInput"
+			],
+			[
+				"mod",
+				"Model"
+			],
+			[
+				"flo",
+				"floortotalapps"
+			],
+			[
+				"floo",
+				"floorfteapps"
+			],
+			[
+				"agent",
+				"agentweek"
+			],
+			[
+				"year",
+				"year"
+			],
+			[
+				"targ",
+				"Targets"
+			],
+			[
+				"sickhours",
+				"sickhours__sum"
+			],
+			[
+				"ta",
+				"Targets"
+			],
+			[
+				"sup",
+				"supervisor"
+			],
+			[
+				"hou",
+				"hours-enddate"
+			],
+			[
+				"mar",
+				"mar"
+			],
+			[
+				"holiday",
+				"holidaytext"
+			],
+			[
+				"qa",
+				"qappsum"
+			],
+			[
+				"q",
+				"qappsum"
+			],
+			[
+				"swith",
+				"switchtype"
+			],
+			[
+				"switch",
+				"switchtype"
+			],
+			[
+				"da",
+				"day-day"
+			],
+			[
+				"academ",
+				"academy"
+			],
+			[
+				"academy_",
+				"academy_year"
+			],
+			[
+				"quar",
+				"quarter"
+			],
+			[
+				"part",
+				"parttimedays"
+			],
+			[
+				"def",
+				"default"
+			],
+			[
+				"F",
+				"False"
+			],
+			[
+				"de",
+				"default"
+			],
+			[
+				"report",
+				"report-agent-list"
+			],
+			[
+				"url",
+				"urlpatterns"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "planner/models.py",
+			"settings":
+			{
+				"buffer_size": 4278,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "planner/views.py",
+			"settings":
+			{
+				"buffer_size": 3797,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "campaign/urls.py",
+			"settings":
+			{
+				"buffer_size": 112,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/F/Documents/Work/Tools/Applications/weather-forecast/assets/js/script.js",
+			"settings":
+			{
+				"buffer_size": 5932,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "agents/models.py",
+			"settings":
+			{
+				"buffer_size": 7734,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/agents/page.html",
+			"settings":
+			{
+				"buffer_size": 12974,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "agents/views.py",
+			"settings":
+			{
+				"buffer_size": 20336,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "campaign/models.py",
+			"settings":
+			{
+				"buffer_size": 684,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "reports/views.py",
+			"settings":
+			{
+				"buffer_size": 17165,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/general/nav.html",
+			"settings":
+			{
+				"buffer_size": 3828,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 311.0,
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: html"
+			]
+		],
+		"width": 512.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/davids/Osiris/templates/agents/page.html",
+		"/C/Users/davids/Osiris/core/views.py",
+		"/C/Users/davids/Osiris/templates/academy/calendar.html",
+		"/C/Users/davids/Osiris/templates/academy/presentation.html",
+		"/C/Users/davids/Osiris/templates/academy/quarter.html",
+		"/C/Users/davids/Osiris/templates/academy/quarterwinners.html",
+		"/C/Users/davids/Osiris/templates/academy/table.html",
+		"/C/Users/davids/Osiris/templates/core/index.html",
+		"/C/Users/davids/Osiris/templates/reports/hours.html",
+		"/C/Users/davids/Osiris/templates/reports/select.html",
+		"/C/Users/davids/Osiris/templates/stats/input.html",
+		"/C/Users/davids/Osiris/templates/stats/qapps.html",
+		"/C/Users/davids/Osiris/templates/stats/stats.html",
+		"/C/Users/davids/Osiris/templates/stats/wstats.html",
+		"/C/Users/davids/Osiris/templates/team/info.html",
+		"/C/Users/davids/Osiris/templates/team/page.html",
+		"/C/Users/davids/Osiris/templates/team/select.html",
+		"/C/Users/davids/Osiris/stats/views.py",
+		"/C/Users/davids/Osiris/agents/models.py",
+		"/C/Users/davids/Osiris/planner/models.py",
+		"/C/Users/davids/Osiris/agents/views.py",
+		"/C/Users/davids/Osiris/templates/general/nav.html",
+		"/C/Users/davids/Osiris/reports/urls.py",
+		"/C/Users/davids/Osiris/templates/reports/excel/breakdown.html",
+		"/C/Users/davids/Osiris/snippets/excelexport.txt",
+		"/C/Users/davids/Osiris/templates/reports/excel/teamreport.html",
+		"/C/Users/davids/Osiris/reports/views.py",
+		"/C/Users/davids/Osiris/templates/reports/teamreport.html",
+		"/C/Users/davids/Osiris/templates/reports/breakdown.html",
+		"/C/Users/davids/Osiris/templates/reports/excel/agentreport.html",
+		"/C/Users/davids/Osiris/planner/views.py",
+		"/C/Users/davids/Osiris/templates/planner/ticket_list.html",
+		"/C/Users/davids/Osiris/core/urls.py",
+		"/C/Users/davids/Osiris/templates/planner/edit.html",
+		"/C/Users/davids/Osiris/settings.py",
+		"/C/Users/davids/Osiris/templates/base-site.html",
+		"/C/Users/davids/Osiris/stats/models.py",
+		"/C/Users/davids/Osiris/academy/views.py",
+		"/C/Users/davids/Osiris/templates/core/saul.html",
+		"/F/Osiris/core/views.py",
+		"/F/Osiris/templates/core/saul.html",
+		"/F/Osiris/stats/models.py",
+		"/F/Osiris/extras/views.py",
+		"/F/Osiris/stats/views.py",
+		"/F/Osiris/academy/urls.py",
+		"/F/Osiris/academy/views.py",
+		"/F/Osiris/stats/academymedals.txt",
+		"/F/Osiris/templates/academy/calendar.html",
+		"/F/Osiris/planner/models.py",
+		"/F/Osiris/templates/team/page.html",
+		"/F/Osiris/team/views.py",
+		"/F/Osiris/templates/team/select.html",
+		"/F/Osiris/templates/academy/quarter.html",
+		"/F/Osiris/templates/academy/quarterwinners.html",
+		"/F/Osiris/academy/models.py",
+		"/F/Osiris/agents/models.py",
+		"/F/Osiris/planner/forms.py",
+		"/F/Osiris/templates/planner/add.html",
+		"/F/Osiris/static/admintools_bootstrap/dashboard.css",
+		"/F/Osiris/static/admin_tools/css/dashboard.css",
+		"/F/Osiris/urls.py",
+		"/F/Osiris/settings.py",
+		"/F/Osiris/templates/core/500.html",
+		"/F/Osiris/templates/reports/agentreport.html",
+		"/F/Osiris/extras/templatetags/osiris_extras.py",
+		"/F/Osiris/templates/reports/teamreport.html",
+		"/F/Osiris/reports/views.py",
+		"/F/Osiris/templates/agents/page.html",
+		"/F/Osiris/agents/views.py",
+		"/F/Osiris/stats/urls.py",
+		"/F/Osiris/templates/base-site.html",
+		"/F/Osiris/templates/general/scripts.html",
+		"/F/Osiris/templates/general/about.html",
+		"/F/Osiris/core/urls.py",
+		"/F/Osiris/stats/forms.py",
+		"/F/Osiris/templates/stats/daily.html",
+		"/F/Osiris/templates/stats/input.html",
+		"/F/Osiris/templates/stats/wstats.html",
+		"/F/Osiris/templates/general/nav.html",
+		"/F/Osiris/templates/team/info.html",
+		"/F/Osiris/planner/views.py",
+		"/F/Osiris/templates/stats/stats.html",
+		"/F/Osiris/templates/reports/hours.html",
+		"/F/Osiris/templates/reports/select.html",
+		"/F/Osiris/reports/urls.py",
+		"/F/Osiris/templates/reports/list.html",
+		"/F/Osiris/templates/general/datechange.html",
+		"/F/Osiris/templates/general/agentcharts.html",
+		"/F/Osiris/team/models.py",
+		"/F/Osiris/templates/agents/list.html",
+		"/F/Osiris/templates/academy/presentation.html",
+		"/F/Osiris/templates/academy/table.html",
+		"/F/Osiris/core/models.py",
+		"/F/Osiris/team/urls.py",
+		"/F/Osiris/agents/urls.py",
+		"/F/Osiris/agent/urls.py",
+		"/F/Osiris/planner/urls.py",
+		"/F/Osiris/agent/models.py",
+		"/F/Osiris/agent/views.py",
+		"/F/Osiris/templates/core/index.html",
+		"/F/Osiris/templates/core/logout.html",
+		"/F/Osiris/templates/core/login.html",
+		"/F/Osiris/supers/models.py",
+		"/F/Osiris/templates/planner/edit.html",
+		"/F/Osiris/templates/planner/ticket_detail.html",
+		"/F/Osiris/templates/planner/ticket_list.html",
+		"/F/Osiris/templates/general/override.html",
+		"/F/Osiris/templates/general/style.html",
+		"/F/Osiris/templates/general/UI INcludes.txt",
+		"/F/Osiris/templates/admin/base_site.html",
+		"/F/Osiris/templates/admin/base.html",
+		"/F/SublimeText2/Data/Packages/Default/Default (Windows).sublime-keymap",
+		"/F/Documents/Web Development/sivocha/index.php",
+		"/C/Users/davids/osiris/Osiris/manage.py",
+		"/C/Users/davids/osiris/Osiris/templates/base.html",
+		"/F/Documents/Downloads/Sublime Text 2 Build 2181/Data/Packages/Default/Preferences.sublime-settings",
+		"/F/Documents/Downloads/Sublime Text 2 Build 2181/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Users/davids/osiris/Osiris/osiris/views/excel.py",
+		"/C/Users/davids/osiris/Osiris/menu.py",
+		"/C/Users/davids/osiris/Osiris/settings.py"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"C:\\Users\\davids\\osiris\\Osiris\\templates"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Training",
+			"training",
+			"Training",
+			"Incentive",
+			"fte",
+			"totals",
+			"</b>",
+			"<br />",
+			"returned",
+			"left",
+			"leave",
+			"Agent",
+			"permanentleave",
+			"MEDIA",
+			"modeladmin",
+			"<h3>",
+			">",
+			"2",
+			"</td>",
+			"<td>",
+			".",
+			"></",
+			"h",
+			")",
+			"(",
+			"week",
+			"review",
+			"print",
+			"month",
+			"agent/{{agent.slug}}/",
+			"month",
+			"holiday",
+			"sick",
+			"other",
+			"datatable table table-bordered table-striped",
+			"calltime",
+			"isomonth",
+			".",
+			"qappquery = QualifiedApps.objects.filter(year=isoyear) #the base query to get all the objects in that year\n    wstatquery",
+			"wstatquery",
+			":",
+			"{}",
+			"dstatquery",
+			"dashboard",
+			"stats_input_qualifiedapps",
+			"month",
+			"MEDIA",
+			"week",
+			"yearstats",
+			"week",
+			"year",
+			"calltime",
+			"year",
+			"calltime",
+			"totals",
+			"personalbests",
+			"training",
+			"sickhol",
+			"agent",
+			"agentaverage['",
+			"average",
+			"totals",
+			"warning",
+			"Report",
+			"agenttype=",
+			"Agent.objects.filter(haveleft=0)",
+			"template = ''",
+			"550",
+			"import",
+			"canvas",
+			"stattype = \"Agent\"",
+			"MEDIA_URL",
+			"{{MEDIA_URL}}",
+			"dstats",
+			"callattempts",
+			"calltime",
+			"dstats",
+			"stats",
+			"stat",
+			"qapps",
+			"MEDIA",
+			" MEDIA",
+			"January",
+			"'one':1, ",
+			"''",
+			"table",
+			"template = ''",
+			"    context = RequestContext(request, {})\n\n    response = render_to_response(template, context)\n    \n    return response",
+			"context = RequestContext(request, {})\n\n    response = render_to_response(template, context)\n    \n    return response",
+			"    ",
+			"context = RequestContext(request, {})\n\n    response = render_to_response(template, context)\n    \n    return response",
+			" = ''",
+			"x=1",
+			"url(r'^$', '",
+			"winners",
+			"slug",
+			"team",
+			"slug",
+			")",
+			"include",
+			"MEDIA_URL",
+			"media",
+			"MEDIA",
+			"STATIC_PREFIX",
+			"STATIC_URL",
+			"http://10.1.105.22/static/",
+			"snippet",
+			"snipper"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 8,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "planner/models.py",
+					"settings":
+					{
+						"buffer_size": 4278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1022,
+								1004
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "planner/views.py",
+					"settings":
+					{
+						"buffer_size": 3797,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "campaign/urls.py",
+					"settings":
+					{
+						"buffer_size": 112,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								112,
+								112
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/F/Documents/Work/Tools/Applications/weather-forecast/assets/js/script.js",
+					"settings":
+					{
+						"buffer_size": 5932,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								131,
+								131
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1665.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "agents/models.py",
+					"settings":
+					{
+						"buffer_size": 7734,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7478,
+								7478
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1080.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "templates/agents/page.html",
+					"settings":
+					{
+						"buffer_size": 12974,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "agents/views.py",
+					"settings":
+					{
+						"buffer_size": 20336,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								941,
+								941
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "campaign/models.py",
+					"settings":
+					{
+						"buffer_size": 684,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								198,
+								198
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "reports/views.py",
+					"settings":
+					{
+						"buffer_size": 17165,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2206,
+								2206
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "templates/general/nav.html",
+					"settings":
+					{
+						"buffer_size": 3828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1418,
+								1418
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/C/Users/davids/osiris/OsirisProject.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 194.0,
+	"status_bar_visible": true
+}

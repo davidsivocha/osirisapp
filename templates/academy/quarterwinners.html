@@ -1,0 +1,57 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}Academy {{month}} {{year}}{% endblock %}
+{% block extrastyle %}<link rel="stylesheet" href="{{ STATIC_URL }}css/orbit-1.2.3.css" type="text/css" media="screen" />{% endblock %}
+{% block pagetitle %}The Academy {{year}} - Quarter {{quarter}}{% endblock %}
+{% block smalltitle %}
+	{% for month in display %}
+		{{month}}
+	{% endfor %}
+{% endblock %}
+{% block content %}
+<div id="academy">
+	<div class="ocontent first" style="">
+		<h1>The Academy Leaderboard</h1>
+		<center><img src="{{ STATIC_URL }}image/trophy_300.jpg" /></center>
+	</div>
+{% for agent in academy %}
+	<div class="ocontent" style="">
+		<h1>{{agent.0}}</h1>
+		<table class="table table-bordered">
+			<tr>
+				<td><h2>Platinum</h2></td>
+				<td><h2>Gold</h2></td>
+				<td><h2>Silver</h2></td>
+				<td><h2>Bronze</h2></td>
+				<td><h2>Total</h2></td>
+			</tr>
+			<tr>
+				<td><h3>{{agent.1}}</h3></td>
+				<td><h3>{{agent.2}}</h3></td>
+				<td><h3>{{agent.3}}</h3></td>
+				<td><h3>{{agent.4}}</h3></td>
+				<td><h3>{{agent.5}}</h3></td>
+			</tr>
+		</table>
+	</div>
+{% endfor %}
+</div>
+{% endblock %}
+{% block highcharts %}
+<script type="text/javascript">
+	$(window).load(function() {
+		$('#academy').orbit({
+			 animation: 'horizontal-push',                  // fade, horizontal-slide, vertical-slide, horizontal-push
+			 animationSpeed: 800,                // how fast animtions are
+			 timer: true, 			 // true or false to have the timer
+			 advanceSpeed: 10000, 		 // if timer is enabled, time between transitions 
+			 pauseOnHover: false, 		 // if you hover pauses the slider
+			 startClockOnMouseOut: false, 	 // if clock should start on MouseOut
+			 startClockOnMouseOutAfter: 1000, 	 // how long after MouseOut should the timer start again
+			 directionalNav: false, 		 // manual advancing directional navs
+			 bullets: false,			 // true or false to activate the bullet navigation
+		});
+	});
+</script>
+{% endblock %}

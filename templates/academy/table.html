@@ -1,0 +1,44 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}{{month}} {{year}} Academy{% endblock %}
+{% block pagetitle %}The Academy - {{month}} {{year}}{% endblock %}
+{% block content %}
+<table id="dailystatstable" class="sortable table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th class="head">Team</th>
+			<th class="head">Agent</th>
+			<th class="head">Calltime</th>
+			<th class="head">Volume Difference</th>
+			<th class="head">Drawing Customers</th>
+			<th class="head">Qualified Apps</th>
+			<th class="head">Rank</th>
+			<th class="head">Points</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for agent in academy %}
+		<tr>
+			<td>{{agent.1}}</td>
+			<td>{{agent.0}}</td>
+			<td>{{agent.3|humantime}}</td>
+			<td>{{agent.6}}</td>
+			<td>{{agent.7}}%</td>
+			<td>{{agent.4}}</td>
+			<td>{{agent.2|ordinal}}</td>
+			<td>{{agent.8}}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+{% block highcharts %}
+<script>
+$(document).ready(function() {
+	$('.tabs').tabs();
+	$('#topbar').dropdown();
+	$("#dailystatstable").tablesorter(); 
+});
+</script>
+{% endblock %}

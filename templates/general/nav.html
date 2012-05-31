@@ -1,0 +1,94 @@
+
+
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<a class="brand" href="/">Osiris</a>
+<div class="nav-collapse">
+{% if user.is_authenticated %}
+<ul class="nav">
+	{% if perms.agents.super %}
+	<li><a href="/saul"><i class="icon-fire icon-white"></i></a></li>
+	{% endif %}
+	<li><a href="/"><i class="icon-home icon-white"></i></a></li>
+	<li class="dropdown" data-dropdown="dropdown">
+		<a href="#" class="dropdown-toggle" title="Stats"><i class="icon-th-list icon-white"></i></a>
+		<ul class="dropdown-menu">
+			<li><a href="/stats/"><i class="icon-th-list"></i> Daily</a></li>
+			<li><a href="/stats/week/"><i class="icon-th-list"></i> Weekly</a></li>
+			<li><a href="/stats/month/"><i class="icon-th-list"></i> Monthly</a></li>
+			<li><a href="/stats/year/"><i class="icon-th-list"></i> Yearly</a></li>
+		</ul>
+	</li>
+	<li class="dropdown" data-dropdown="dropdown">
+		<a href="#" class="dropdown-toggle">Academy</a>
+		<ul class="dropdown-menu">
+			<li><a href="/academy"><i class="icon-star"></i> Winners</a></li>
+			<li><a href="/academy/leaderboard"><i class="icon-star-empty"></i> Board</a></li>
+			<li><a href="/academy/calendar"><i class="icon-star-empty"></i> Academy Calendar</a></li>
+		</ul>
+	</li>
+	<li><a href="/agent">Agents</a></li>
+	<li><a href="/team">Teams</a></li>
+	{% if perms.agents.super %}
+	<li><a href="/reports">Reports</a></li>
+	<li><a href="/">Campaigns</a></li>
+	{% endif %}
+	<li class="dropdown" data-dropdown="dropdown">
+		<a href="#" class="dropdown-toggle">Admin</a>
+		<ul class="dropdown-menu">
+			<li><a href="/admin"><i class="icon-cog"></i> Site</a></li>
+			{% if perms.agents.super %}
+			<li><a href="/planner"><i class="icon-book"></i> Planner</a></li>
+			{% endif %}
+			{% if perms.agents.admin %}
+				<li><a href="/stats/input"><i class="icon-pencil"></i> Daily Stats Input</a></li>
+				<li><a href="/stats/input/europe/be"><i class="icon-pencil"></i> Belguim Stats Input</a></li>
+				<li><a href="/stats/input/europe/de"><i class="icon-pencil"></i> German Stats Input</a></li>
+				<li><a href="/stats/input/europe/nl"><i class="icon-pencil"></i> Holland Stats Input</a></li>
+				<li><a href="/stats/input/qapps"><i class="icon-pencil"></i> Qualified Apps Input</a></li>
+				<li><a href="/stats/input/week"><i class="icon-pencil"></i> Weekly Stats Input</a></li>
+			{% endif %}
+			<li class="divider"></li>
+			<li><a href="/logout"><i class="icon-off"></i> Logout {{user.get_full_name}}</a></li>
+		</ul>
+	</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+{% else %}
+<ul class="nav">
+	<li><a href="/"><i class="icon-home icon-white"></i></a></li>
+	<li class="dropdown" data-dropdown="dropdown">
+		<a href="#" class="dropdown-toggle" title="Stats"><i class="icon-th-list icon-white"></i></a>
+		<ul class="dropdown-menu">
+			<li><a href="/stats/"><i class="icon-th-list"></i> Daily</a></li>
+			<li><a href="/stats/week/"><i class="icon-th-list"></i> Weekly</a></li>
+			<li><a href="/stats/month/"><i class="icon-th-list"></i> Monthly</a></li>
+			<li><a href="/stats/year/"><i class="icon-th-list"></i> Yearly</a></li>
+		</ul>
+	</li>
+	<li class="dropdown" data-dropdown="dropdown">
+		<a href="#" class="dropdown-toggle">Academy</a>
+		<ul class="dropdown-menu">
+			<li><a href="/academy"><i class="icon-star"></i> Winners</a></li>
+			<li><a href="/academy/leaderboard"><i class="icon-star-empty"></i> Board</a></li>
+			<li><a href="/academy/calendar"><i class="icon-star-empty"></i> Academy Calendar</a></li>
+		</ul>
+	</li>
+	<li class="dropdown" data-dropdown="dropdown">
+		<a href="#" class="dropdown-toggle">Admin</a>
+		<ul class="dropdown-menu">
+			<li><a href="/admin"><i class="icon-cog"></i> Site</a></li>
+			<li class="divider"></li>
+			<li><a href="/login"><i class="icon-off"></i> Login</a></li>
+		</ul>
+	</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+{% endif %}

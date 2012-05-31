@@ -1,0 +1,137 @@
+<script>
+var chart;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         zoomType: 'x'
+      },
+      title: {
+         text: 'Call Time, Call Attempts and Application Averages'
+      },
+      xAxis: [{
+         categories: {{weeks}}
+      }],
+      yAxis: [{ // Primary yAxis
+         labels: {
+            formatter: function() {
+               return this.value;
+            },
+            style: {
+               color: '#89A54E'
+            }
+         },
+         title: {
+            text: 'Calltime and Call Attempts',
+            style: {
+               color: '#89A54E'
+            }
+         }
+      }, { // Secondary yAxis
+         title: {
+            text: 'Applications',
+            style: {
+               color: '#4572A7'
+            }
+         },
+         labels: {
+            formatter: function() {
+               return this.value;
+            },
+            style: {
+               color: '#4572A7'
+            }
+         },
+         opposite: true
+      }],
+      tooltip: {
+         formatter: function() {
+            return 'Week '+
+               this.x +': '+ this.y + ' ' + this.series.name;
+         }
+      },
+      series: [{
+         name: 'Applications',
+         type: 'column',
+         yAxis: 1,
+         data: [{% for each in apps %}{{each}},{% endfor %}]
+      
+      }, {
+         name: 'Call Time',
+         type: 'spline',
+         data: {{calltime}}
+		 
+      }, {
+         name: 'Call Attempts',
+         type: 'spline',
+         data: {{callattempts}}
+      }]
+   });
+   
+   var qapps = document.getElementById('qappstable'),
+	qappsoptions = {
+         chart: {
+            renderTo: 'qappschart',
+            defaultSeriesType: 'column',
+			width: 700,
+			zoomType: 'x'
+         },
+         title: {
+            text: 'Qualified Applications '
+         },
+         xAxis: {
+			title: {
+               text: 'Months'
+            },
+			labels: {
+				rotation: -45,
+				align: 'right',
+				style: {
+					font: 'normal 13px Verdana, sans-serif'
+				}
+			},
+         },
+         yAxis: {
+            title: {
+               text: 'Applications'
+            }
+         },
+         tooltip: {
+            formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+
+                  this.y +' Applications';
+            }
+         }
+      };
+	Highcharts.visualize(qapps, qappsoptions);
+});
+
+Highcharts.visualize = function(table, options) {
+   // the categories
+   options.xAxis.categories = [];
+   $('tbody th', table).each( function(i) {
+      options.xAxis.categories.push(this.innerHTML);
+   });
+   
+   // the data series
+   options.series = [];
+   $('tr', table).each( function(i) {
+      var tr = this;
+      $('th, td', tr).each( function(j) {
+         if (j > 0) { // skip first column
+            if (i == 0) { // get the name and init the series
+               options.series[j - 1] = { 
+                  name: this.innerHTML,
+                  data: []
+               };
+            } else { // add values
+               options.series[j - 1].data.push(parseFloat(this.innerHTML));
+            }
+         }
+      });
+   });
+   
+   var chart = new Highcharts.Chart(options);
+}
+
+</script>

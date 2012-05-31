@@ -1,0 +1,60 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" />{% endblock %}
+{% block extrascripts %}
+<script src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+<script src="{{STATIC_URL}}js/jquery.tablescroll.js" type="text/javascript"></script>
+{% endblock %}
+{% load humanize %}
+{% block title %}Qualified Apps Input{% endblock %}
+{% block pagetitle %}Qualified Apps Input{% endblock %}
+{% block content %}{{input_formset.error}}
+<form method="post" action="">{% csrf_token %}
+	{{ global_formset.management_form }}
+	{{ input_formset.management_form }}
+	{% for global in global_formset %}
+	<table>
+		{{global}}
+	</table>
+	{% endfor %}
+    <table id="thetable" class="table table-bordered table-striped dstats">
+		<thead>
+			<tr>
+				<th class="head">Agent</td>
+				<th class="head">Qualified Apps</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for form in input_formset %}
+			<tr>
+				<td class="agentname">
+					{{form.pk}}
+					{{ form.agent }}
+				<td class="small">{{ form.qapps }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+    </table>
+	<input class="btn btn-primary" type="submit" value="Input Stats" />
+</form>
+{%endblock%}
+{% block highcharts %}
+<script>
+	$(function() {
+		$( ".date" ).datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,
+			changeYear: true, minDate: new Date(1970, 1 - 1, 1), shortYearCutoff: 50, yearRange: 'c-3:c+3' });
+	});
+	
+	jQuery(function($){
+		$(".time").mask("9:99",{placeholder:" "});
+	});
+	
+	/*<![CDATA[*/
+	jQuery(document).ready(function($)
+	{
+		$('#thetable').tableScroll({height:500});
+	});
+	/*]]>*/
+</script>
+{% endblock %}

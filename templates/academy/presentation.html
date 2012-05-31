@@ -1,0 +1,64 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}Academy {{month}} {{year}}{% endblock %}
+{% block extrastyle %}<link rel="stylesheet" href="{{ STATIC_URL }}css/orbit-1.2.3.css" type="text/css" media="screen" />{% endblock %}
+{% block pagetitle %}The Academy - {{month}} {{year}}{% endblock %}
+{% block content %}
+<div id="academy">
+	<div class="ocontent first" style="">
+		<h1>The Academy Leaderboard</h1>
+		<center><img src="{{ STATIC_URL }}image/trophy_300.jpg" /></center>
+	</div>
+{% for agent in academy %}
+	<div class="ocontent" style="">
+	{% if agent.2 > 40 %}
+		<div class="academyavatar"><img class="acadatar" src="{{ STATIC_URL }}{{agent.5}}" /><img class="medal" src="{{ STATIC_URL }}image/none.png" /></div>
+	{% endif %}	
+	{% if agent.2 > 30 and agent.2 < 41%}
+		<div class="academyavatar"><img class="acadatar" src="{{ STATIC_URL }}{{agent.5}}" /><img class="medal" src="{{ STATIC_URL }}image/bronze.png" /></div>
+	{% endif %}
+	{% if agent.2 > 20 and agent.2 < 31%}
+		<div class="academyavatar"><img class="acadatar" src="{{ STATIC_URL }}{{agent.5}}" /><img class="medal" src="{{ STATIC_URL }}image/silver.png" /></div>
+	{% endif %}
+	{% if agent.2 > 10 and agent.2 < 21%}
+		<div class="academyavatar"><img class="acadatar" src="{{ STATIC_URL }}{{agent.5}}" /><img class="medal" src="{{ STATIC_URL }}image/gold.png" /></div>
+	{% endif %}
+	{% if agent.2 < 11 %}	
+		<div class="academyavatar"><img class="acadatar" src="{{ STATIC_URL }}{{agent.5}}" /><img class="medal" src="{{ STATIC_URL }}image/platinum.png" /></div>
+	{% endif %}	
+		<h1>{{agent.2|ordinal}} Place</h1>
+		<h3>{{agent.0}}</h3>
+		<dl>
+			<dd>Average Call time</dd>
+			<dt>{{agent.3|humantime}}</dt>
+			<dd>Qualified Apps</dd>
+			<dt>{{agent.4}}</dt>
+			<dd>Volume</dd>
+			<dt>{{agent.6}}</dt>
+			<dd>Drawing Customers</dd>
+			<dt>{{agent.7}}%</dt>
+			<dd>Team</dd>
+			<dt>{{agent.1}}</dt>
+		</dl>
+	</div>
+{% endfor %}
+</div>
+{% endblock %}
+{% block highcharts %}
+<script type="text/javascript">
+	$(window).load(function() {
+		$('#academy').orbit({
+			 animation: 'horizontal-push',                  // fade, horizontal-slide, vertical-slide, horizontal-push
+			 animationSpeed: 800,                // how fast animtions are
+			 timer: true, 			 // true or false to have the timer
+			 advanceSpeed: 10000, 		 // if timer is enabled, time between transitions 
+			 pauseOnHover: false, 		 // if you hover pauses the slider
+			 startClockOnMouseOut: false, 	 // if clock should start on MouseOut
+			 startClockOnMouseOutAfter: 1000, 	 // how long after MouseOut should the timer start again
+			 directionalNav: false, 		 // manual advancing directional navs
+			 bullets: false,			 // true or false to activate the bullet navigation
+		});
+	});
+</script>
+{% endblock %}

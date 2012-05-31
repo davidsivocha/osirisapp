@@ -1,0 +1,50 @@
+{% extends 'basenosplit.html' %}
+{% block title %}Osiris - Ticket List{% endblock %}
+{% block pagetitle %}Admin Tasks{% endblock %}
+{% block smalltitle %}{% endblock %}
+{% block content %}
+<a href="/planner/add/" class="btn btn-info">Add a new admin task</a>
+<br /><br />
+<table cellspacing="0" class="list table table-bordered table-striped">
+	<tr>
+		<th>Description</th>
+		<th>Status</th>
+		<th>Assigned to</th>
+		<th>Requested by</th>
+		<th>Priority</th>
+		<th>Due Date</th>
+	</tr>
+	{% for ticket in object_list %}
+	<tr>
+		<td><a href="/planner/{{ticket.id}}/">{{ ticket.name }}</a></td>
+		<td>{{ ticket.get_status_display }}</td>
+		<td>{{ ticket.assigned_to.first_name }} {{ ticket.assigned_to.last_name }}</td>
+		<td>{{ ticket.received_from.first_name }} {{ ticket.received_from.last_name }}</td>
+		<td>{{ ticket.get_priority_display }}</td>
+		<td>{{ ticket.due_on }}</td>
+	</tr>
+	{% endfor %}
+</table>
+<hr />
+<h2>Closed Tasks</h2>
+<table cellspacing="0" class="list table table-bordered table-striped">
+	<tr>
+		<th>Description</th>
+		<th>Status</th>
+		<th>Assigned to</th>
+		<th>Requested by</th>
+		<th>Priority</th>
+		<th>Due Date</th>
+	</tr>
+	{% for ticket in oldobject_list %}
+	<tr>
+		<td><a href="/planner/{{ticket.id}}/">{{ ticket.name }}</a></td>
+		<td>{{ ticket.get_status_display }}</td>
+		<td>{{ ticket.assigned_to.first_name }} {{ ticket.assigned_to.last_name }}</td>
+		<td>{{ ticket.received_from.first_name }} {{ ticket.received_from.last_name }}</td>
+		<td>{{ ticket.get_priority_display }}</td>
+		<td>{{ ticket.due_on }}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}

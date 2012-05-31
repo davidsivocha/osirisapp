@@ -1,0 +1,115 @@
+{% extends 'customrowbase.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}{% endblock %}
+{% block extrascripts %}{% endblock %}
+{% block title %}Daily Stats - {{thedate|date:"D d/m/Y"}}{% endblock %}
+{% block pagetitle %}Daily Stats{% endblock %}
+{% block smalltitle %}{{thedate|date:"D d/m/Y"}}{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="span9">
+	<a href="/stats/print/excel/{{thedate|date:'Y-m-d'}}" class="btn btn-primary"><i class="icon-download icon-white"></i> Export to Excel</a>
+	<h3 style="text-decoration:underline; color:rgb(54,95,145);">Highest Apps</h3>
+	{% for agent in highapps %}
+		<b style="color:rgb(227,108,10);"><img src="{{STATIC_URL}}image/{{agent.2}}.png" />&nbsp;&nbsp;&nbsp;&nbsp;{{agent.0}}</b> with <b>{{agent.1}}</b><br />
+	{% endfor %}
+	<h3 style="text-decoration:underline; color:rgb(54,95,145);">Highest Call Time</h3>
+	{% for agent in highcall %}
+		<b style="color:rgb(227,108,10);"><img src="{{STATIC_URL}}image/{{agent.2}}.png" />&nbsp;&nbsp;&nbsp;&nbsp;{{agent.0}}</b> at <b>{{agent.1|humantime}}</b><br />
+	{% endfor %}
+	<h3 style="text-decoration:underline; color:rgb(54,95,145);">Highest Call Attempts</h3>
+	{% for agent in highattempts %}
+		<b style="color:rgb(227,108,10);"><img src="{{STATIC_URL}}image/{{agent.2}}.png" />&nbsp;&nbsp;&nbsp;&nbsp;{{agent.0}}</b> with <b>{{agent.1}}</b><br />
+	{% endfor %}
+	</div>
+	<div class="span3">
+		<h2>Floor Totals</h2>
+		<p>Calltime: <b>{{totals.0|humantime}}</b></p>
+		<p>Call Attempts: <b>{{totals.1|floatformat:0}}</b></p>
+		<p>Apps: <b>{{totals.2}}</b></p>
+		<p>FTE: <b>{{totals.3|floatformat:2}}</b></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+	<hr />
+	{% for key,value in eachteam.items %}
+	<h3 style="color:#{{colour|lookup:key}}; text-decoration:underline;">{{key}}</h3>
+	<table class="table table-bordered table-striped">
+		<thead><tr>
+			<td>{{key}}</td><td>Calltime</td><td>Call Attempts</td><td>Total Apps</td><td>MTD Apps</td><td>Sick</td><td>Hol</td><td>PWH</td>
+		</tr></thead>
+		<tbody>
+	{% for team in value %}
+			<tr>
+				<td>{{team.0}}</td>
+				{% if team.8 == 0 %}
+					{% if team.10 == team.12 or team.11 == team.12 %}
+						<td colspan="2">In meetings, training or on the road</td>
+					{% else %}
+						<td>{{team.1|humantime}}</td>
+						<td>{{team.2|floatformat:0}}</td>
+					{% endif %}
+					<td>{{team.3}}</td>
+					<td>{{team.4}}</td>
+					{% if team.6 == 1 %}
+						<td><img src="{{STATIC_URL}}image/black/ic_ok.png" /></td>
+					{% else %}
+						<td></td>
+					{% endif %}
+					{% if team.7 == 1 %}
+						<td><img src="{{STATIC_URL}}image/black/ic_ok.png" /></td>
+					{% else %}
+						<td></td>
+					{% endif %}
+					<td>{{team.9}}</td>
+				{% else %}
+					<td colspan="2">Part Time Day</td>
+					<td>{{team.3}}</td>
+					<td>{{team.4}}</td>
+					{% if team.6 == 1 %}
+						<td><img src="{{STATIC_URL}}image/black/ic_ok.png" /></td>
+					{% else %}
+						<td></td>
+					{% endif %}
+					{% if team.7 == 1 %}
+						<td><img src="{{STATIC_URL}}image/black/ic_ok.png" /></td>
+					{% else %}
+						<td></td>
+					{% endif %}
+					<td>{{team.9}}</td>
+				{% endif %}
+			</tr>
+	{% endfor %}
+		</tbody>
+	</table>
+	{% endfor %}
+	<hr />
+	<h3>Floor Stats</h3>
+	<table class="table table-bordered table-striped">
+		<thead><tr>
+			<td>Team</td><td>Calltime</td><td>Call Attempts</td><td>Total Apps</td><td>FTE</td>
+		</tr></thead>
+		<tbody>
+		{% for team in tstats %}
+			<tr>
+				<td>{{team.0}}</td>
+				<td>{{team.1|humantime}}</td>
+				<td>{{team.2|floatformat:0}}</td>
+				<td>{{team.3}}</td>
+				<td>{{team.4|floatformat:2}}</td>
+			</tr>
+		{% endfor %}
+			<tr>
+				<td><b>Floor Totals</b></td>
+				<td><b>{{totals.0|humantime}}</b></td>
+				<td><b>{{totals.1|floatformat:0}}</b></td>
+				<td><b>{{totals.2}}</b></td>
+				<td><b>{{totals.3|floatformat:2}}</b></td>
+			</tr>
+		</tbody>
+	</table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% load osiris_extras %}
+<script>
+	$(document).ready(function() {
+
+		$('#year').click(function() {
+			$year = $('#year-year').val();
+			window.location = "{% print_site_url %}stats/"+$year;
+		}); 
+
+		$('#month').click(function() {
+			$year = $('#year-month').val();
+			$month = $('#month-month').val();
+			window.location = "{% print_site_url %}stats/"+$year+"/"+$month;
+		}); 
+
+		$('#week').click(function() {
+			$year = $('#year-week').val();
+			$week = $('#week-week').val();
+			if($week.length > 1){
+				window.location = "{% print_site_url %}stats/"+$year+"/"+$week;
+			} else if($week.length == 1){
+				window.location = "{% print_site_url %}stats/"+$year+"/0"+$week;
+			}else{
+				window.location = "{% print_site_url %}stats/"+$year+"/"+$week;
+			}
+		}); 
+
+		$('#day').click(function() {
+			$year = $('#year-day').val();
+			$month = $('#month-day').val();
+			$day = $('#day-day').val();
+			if($day.length > 1){
+				window.location = "{% print_site_url %}stats/"+$year+"/"+$month+"/"+$day;
+			}else if($day.length == 1){
+				window.location = "{% print_site_url %}stats/"+$year+"/"+$month+"/0"+$day;
+			} else {
+				window.location = "{% print_site_url %}stats/"+$year+"/"+$month+"/"+$day;
+			}
+		}); 
+
+	});
+</script>

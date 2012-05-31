@@ -1,0 +1,45 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}Quarter {{quarter}} Academy{% endblock %}
+{% block pagetitle %}The Academy {{year}} - Quarter {{quarter}}{% endblock %}
+{% block smalltitle %}
+	{% for month in display %}
+		{{month}}
+	{% endfor %}
+{% endblock %}
+{% block content %}
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Agent</th>
+			<th>Platinum</th>
+			<th>Gold</th>
+			<th>Silver</th>
+			<th>Bronze</th>
+			<th>Points</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for each in academy %}
+			<tr>
+			<td>{{each.0}}</td>
+			<td>{{each.1}}</td>
+			<td>{{each.2}}</td>
+			<td>{{each.3}}</td>
+			<td>{{each.4}}</td>
+			<td>{{each.5}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+{% block highcharts %}
+<script>
+$(document).ready(function() {
+	$('.tabs').tabs();
+	$('#topbar').dropdown();
+	$("#dailystatstable").tablesorter(); 
+});
+</script>
+{% endblock highcharts %}

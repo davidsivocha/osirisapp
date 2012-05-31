@@ -1,0 +1,71 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}Calendar{% endblock %}
+{% block pagetitle %}Academy Calendar{% endblock %}
+{% block content %}
+<form class="well form-inline" id="year-review">
+	<input type="text" class="input-small" placeholder="Year" id="review-year-year" value="{% current_time "%Y" %}">
+	<button type="submit" class="btn btn-success">Generate Year Academy <i class="icon-star icon-white"></i></button>
+	<button id="year-review-leaderboard" class="btn btn-info">Generate Year Leaderboard <i class="icon-star icon-white"></i></button>
+</form>
+<form class="well form-inline" id="month-review">
+	<input type="text" id="review-year-month" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+	<select class="span1" id="review-month-month">
+		<option value="jan">Jan</option>
+		<option value="feb">Feb</option>
+		<option value="mar">Mar</option>
+		<option value="apr">Apr</option>
+		<option value="may">May</option>
+		<option value="jun">Jun</option>
+		<option value="jul">Jul</option>
+		<option value="aug">Aug</option>
+		<option value="sep">Sep</option>
+		<option value="oct">Oct</option>
+		<option value="nov">Nov</option>
+		<option value="dec">Dec</option>
+	</select>
+	<button type="submit" class="btn btn-success">Generate Month Academy <i class="icon-star icon-white"></i></button>
+	<button id="month-review-leaderboard" class="btn btn-info">Generate Month Leaderboard <i class="icon-star icon-white"></i></button>
+</form>
+<form class="well form-inline" id="quarter-review">
+	<input type="text" id="review-year-quarter" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+	<input type="text" id="review-quarter-quarter" class="input-small" placeholder="1" value="1">
+	<button type="submit" class="btn btn-success">Generate Quarter Academy <i class="icon-star icon-white"></i></button>
+	<button id="quarter-review-leaderboard" class="btn btn-info">Generate Quarter Leaderboard <i class="icon-star icon-white"></i></button>
+</form>
+{% endblock %}
+{% block highcharts %}
+<script>
+	$("#year-review").submit(function() {
+		$url = "{% print_site_url %}academy/"+$('#review-year-year').val();
+		window.location = $url;
+		return false;
+	});
+	$("#month-review").submit(function() {
+		$url = "{% print_site_url %}academy/"+$('#review-year-month').val()+"/"+$('#review-month-month').val();
+		window.location = $url;
+		return false;
+	});
+	$("#quarter-review").submit(function() {
+		$url = "{% print_site_url %}academy/"+$('#review-year-quarter').val()+"/"+$('#review-quarter-quarter').val();
+		window.location = $url;
+		return false;
+	});
+	$("#year-review-leaderboard").click(function() {
+		$url = "{% print_site_url %}academy/leaderboard/"+$('#review-year-year').val();
+		window.location = $url;
+		return false;
+	});
+	$("#month-review-leaderboard").click(function() {
+		$url = "{% print_site_url %}academy/leaderboard/"+$('#review-year-month').val()+"/"+$('#review-month-month').val();
+		window.location = $url;
+		return false;
+	});
+	$("#quarter-review-leaderboard").click(function() {
+		$url = "{% print_site_url %}academy/leaderboard/"+$('#review-year-quarter').val()+"/"+$('#review-quarter-quarter').val();
+		window.location = $url;
+		return false;
+	});
+</script>
+{% endblock %}

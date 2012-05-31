@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% block title %}Osiris - Ticket #{{ object.id }}{% endblock %}
+{% block pagetitle %}{{ object.name }}{% endblock %}
+{% block smalltitle %}{{ object.get_priority_display }} Priority{% endblock %}
+{% block content %}
+<h2>Information</h2>
+<p class="des">{{ object.description|safe }}</p>
+{% endblock %}
+{% block contenttwo %}
+<a href="{% url ticket-list %}" class="btn btn-primary">Back to list</a>
+<a href="{% print_site_url %}planner/{{object.id}}/edit/" class="btn btn-info">Edit Task</a>
+<hr />
+<h3>Status</h3>
+{{ object.get_status_display }}
+<br />
+<h3>Created</h3>
+{{ object.created_on }}
+<h3>Last Updated</h3>
+{{ object.updated_on }}
+<h3>Assigned to:</h3>
+{{ object.assigned_to.first_name }} {{ object.assigned_to.last_name }}
+<h3>Requested By:</h3>
+{{ object.received_from.first_name }} {{ object.received_from.last_name }}
+<h3>Priority</h3>
+{{ object.get_priority_display }}
+<h3>Due Date</h3>
+{{ object.due_on }}
+{% endblock %}

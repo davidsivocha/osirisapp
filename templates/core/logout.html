@@ -1,0 +1,13 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load url from future %}
+{% load humanize %}
+{% block extrastyle %}{% endblock %}
+{% block extrascripts %}{% endblock %}
+{% block title %}Logged Out{% endblock %}
+{% block pagetitle %}Goodbye{% endblock %}
+{% block smalltitle %}{% endblock %}
+{% block content %}{{error}}
+<h1>Thank you for using Osiris!</h1>
+<p>To continue to use the system, please <a href="/login">Login again!</a></p>
+{% endblock %}

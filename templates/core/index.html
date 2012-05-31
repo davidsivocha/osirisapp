@@ -1,0 +1,36 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}<link rel="stylesheet" href="{{STATIC_URL}}css/orbit-1.2.3.css" type="text/css" media="screen" />{% endblock %}
+{% block title %}Dashboard{% endblock %}
+{% block pagetitle %}Dashboard{% endblock %}
+{% block smalltitle %}Information{% endblock %}
+{% block content %}{{error}}
+{% if frontpage %}
+	<div id="academy">
+	{% for FrontPage in frontpage %}
+		<div class="ocontent" style="">
+			<h2>{{FrontPage.title}}</h2>
+			{{FrontPage.content|safe}}
+		</div>
+	{% endfor %}
+	</div>
+{% endif %}
+{% endblock %}
+{% block highcharts %}
+<script type="text/javascript">
+	$(window).load(function() {
+		$('#academy').orbit({
+			 animation: 'horizontal-push',                  // fade, horizontal-slide, vertical-slide, horizontal-push
+			 animationSpeed: 800,                // how fast animtions are
+			 timer: true, 			 // true or false to have the timer
+			 advanceSpeed: 10000, 		 // if timer is enabled, time between transitions 
+			 pauseOnHover: false, 		 // if you hover pauses the slider
+			 startClockOnMouseOut: false, 	 // if clock should start on MouseOut
+			 startClockOnMouseOutAfter: 1000, 	 // how long after MouseOut should the timer start again
+			 directionalNav: false, 		 // manual advancing directional navs
+			 bullets: false,			 // true or false to activate the bullet navigation
+		});
+	});
+</script>
+{% endblock %}

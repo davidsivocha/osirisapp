@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}{{title}}{% endblock %}
+{% block pagetitle %}{{title}}{% endblock %}
+{% block content %}{{error}}
+{% if tstats %}
+<table class="table table-bordered table-striped">
+	<thead><tr>
+		<td>Team</td><td>Calltime</td><td>Call Attempts</td><td>Total Apps</td><td>FTE</td>
+	</tr></thead>
+	<tbody>
+	{% for team in tstats %}
+		<tr>
+			<td>{{team.0}}</td>
+			<td>{{team.1|humantime}}</td>
+			<td>{{team.2|floatformat:0}}</td>
+			<td>{{team.3}}</td>
+			<td>{{team.4|floatformat:2}}</td>
+		</tr>
+	{% endfor %}
+	{% if totals %}
+		<tr>
+			<td><b>Floor Totals</b></td>
+			<td><b>{{totals.0|humantime}}</b></td>
+			<td><b>{{totals.1|floatformat:0}}</b></td>
+			<td><b>{{totals.2}}</b></td>
+			<td><b>{{totals.3|floatformat:2}}</b></td>
+		</tr>
+	{% endif %}
+	</tbody>
+</table>
+{% else %}
+<h2>There are no Stats for this Date</h2>
+{% endif %}
+{% endblock %}
+{% block contenttwo %}
+<a class="btn btn-info" href="{{switch}}">Switch to {{switchtype}} view</a>
+<hr />
+<input type="text" placeholder="Year" id="year-year" value="{% current_time "%Y" %}"><br />
+<a class="btn btn-primary" id="year">View Year</a>
+<hr />
+<input type="text" placeholder="Year" id="year-month" value="{% current_time "%Y" %}" class="span1">
+<select class="span2" id="month-month">
+	<option value="jan">Jan</option>
+	<option value="feb">Feb</option>
+	<option value="mar">Mar</option>
+	<option value="apr">Apr</option>
+	<option value="may">May</option>
+	<option value="jun">Jun</option>
+	<option value="jul">Jul</option>
+	<option value="aug">Aug</option>
+	<option value="sep">Sep</option>
+	<option value="oct">Oct</option>
+	<option value="nov">Nov</option>
+	<option value="dec">Dec</option>
+</select><br />
+<a class="btn btn-primary" id="month">View Month</a>
+<hr />
+<input type="text" placeholder="Year" id="year-week" value="{% current_time "%Y" %}" class="span1">
+<input type="text" class="span2" placeholder="Week Number" id="week-week"><br />
+<a class="btn btn-primary" id="week">View Week</a>
+<hr />
+<input type="text" placeholder="Year" id="year-day" value="{% current_time "%Y" %}" class="span1">
+<select class="span1" id="month-day">
+	<option value="jan">Jan</option>
+	<option value="feb">Feb</option>
+	<option value="mar">Mar</option>
+	<option value="apr">Apr</option>
+	<option value="may">May</option>
+	<option value="jun">Jun</option>
+	<option value="jul">Jul</option>
+	<option value="aug">Aug</option>
+	<option value="sep">Sep</option>
+	<option value="oct">Oct</option>
+	<option value="nov">Nov</option>
+	<option value="dec">Dec</option>
+</select>
+<input type="text" class="span1" id="day-day" placeholder="Day"><br />
+<a class="btn btn-primary" id="day">View Day</a>
+{% endblock %}
+{% block highcharts %}
+{% include "general/datechange.html" %}
+{% endblock %}

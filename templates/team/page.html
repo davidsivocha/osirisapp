@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}{{ team.name }}{% endblock %}
+{% block extrascripts %}
+<script src="{{STATIC_URL}}js/highcharts.src.js" type="text/javascript"></script>
+{% endblock %}
+{% block pagetitle %}{{ team.name }}{% endblock %}
+{% block smalltitle %}{{ team.get_teamtype_display }} <img src="{{STATIC_URL}}image/{{team.country}}.png">{% endblock %}
+{% block content %}
+<ul class="tabs nav nav-tabs">
+	<li class="active tab-pane"><a data-toggle="tab" href="#week">Week</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#month">Month</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#year">Year</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#qapps">Qualified Apps</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#vol">Volume</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#report">Reports</a></li>
+</ul>
+<div class="tab-content">
+	<div class="active tab-pane" id="week">
+		<h2>Week to date: Week {{date.week}} - {{date.year}}</h2>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Total</th>
+					<th>Daily Average</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Call Time</td>
+					<td>{{weekfte.totalcalltime|humantime}}</td>
+					<td>{{weekfte.calltime|humantime}}</td>
+				</tr>
+				<tr>
+					<td>Call Attempts</td>
+					<td>{{weekfte.totalcallattempts}}</td>
+					<td>{{weekfte.callattempts}}</td>
+				</tr>
+				<tr>
+					<td>Applications</td>
+					<td>{{weekfte.totalapps}}</td>
+					<td>{{weekfte.fteapps|floatformat:2}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Agent</th>
+					<th>Call Time</th>
+					<th>Call Attempts</th>
+					<th>Total Apps</th>
+					<th>FTE</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key,value in agentweek.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td>{{value.0|humantime}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.4}}</td>
+						<td>{{value.5|floatformat:2}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="month">
+		<h2>Month to date: {{date.month}} - {{date.year}}</h2>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Total</th>
+					<th>Daily Average</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Call Time</td>
+					<td>{{monthfte.totalcalltime|humantime}}</td>
+					<td>{{monthfte.calltime|humantime}}</td>
+				</tr>
+				<tr>
+					<td>Call Attempts</td>
+					<td>{{monthfte.totalcallattempts}}</td>
+					<td>{{monthfte.callattempts}}</td>
+				</tr>
+				<tr>
+					<td>Applications</td>
+					<td>{{monthfte.totalapps}}</td>
+					<td>{{monthfte.fteapps|floatformat:2}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Agent</th>
+					<th>Call Time</th>
+					<th>Call Attempts</th>
+					<th>Total Apps</th>
+					<th>FTE</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key,value in agentmonth.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td>{{value.0|humantime}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.4}}</td>
+						<td>{{value.5|floatformat:2}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="year">
+		<h2>Year to date: {{date.year}}</h2>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Total</th>
+					<th>Daily Average</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Call Time</td>
+					<td>{{yearfte.totalcalltime|humantime}}</td>
+					<td>{{yearfte.calltime|humantime}}</td>
+				</tr>
+				<tr>
+					<td>Call Attempts</td>
+					<td>{{yearfte.totalcallattempts}}</td>
+					<td>{{yearfte.callattempts}}</td>
+				</tr>
+				<tr>
+					<td>Applications</td>
+					<td>{{yearfte.totalapps}}</td>
+					<td>{{yearfte.fteapps|floatformat:2}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Agent</th>
+					<th>Call Time</th>
+					<th>Call Attempts</th>
+					<th>Total Apps</th>
+					<th>FTE</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key,value in agentyear.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td>{{value.0|humantime}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.4}}</td>
+						<td>{{value.5|floatformat:2}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="qapps">
+		<h2>Month to date - {{date.month}}</h2>
+		<table class="table table-bordered table-striped">
+			<thead><tr>
+				<td>Agent</td><td>Apps</td>
+			</tr></thead>
+			<tbody>
+			{% for agent in appstable %}
+				<tr><td>{{agent.0}}</td><td>{{agent.1}}</td></tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="vol">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Agent</th>
+					<th>Average Monthly Volume Growth</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key,value in agentavgvol.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td>{{value|floatformat:0}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="report">
+		<!--
+		<h2>Team Reviews</h2>
+	    <form class="well form-inline" id="year-review">
+			<input type="text" class="input-small" placeholder="Year" id="review-year-year" value="{% current_time "%Y" %}">
+			<button type="submit" class="btn btn-success">Generate Year Review <i class="icon-print icon-white"></i></button>
+		</form>
+		<form class="well form-inline" id="month-review">
+			<input type="text" id="review-year-month" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+			<select class="span1" id="review-month-month">
+				<option value="jan">Jan</option>
+				<option value="feb">Feb</option>
+				<option value="mar">Mar</option>
+				<option value="apr">Apr</option>
+				<option value="may">May</option>
+				<option value="jun">Jun</option>
+				<option value="jul">Jul</option>
+				<option value="aug">Aug</option>
+				<option value="sep">Sep</option>
+				<option value="oct">Oct</option>
+				<option value="nov">Nov</option>
+				<option value="dec">Dec</option>
+			</select>
+			<button type="submit" class="btn btn-success">Generate Month Review <i class="icon-print icon-white"></i></button>
+		</form>
+		-->
+		<h2>Performance Reports</h2>
+		<form class="well form-inline" id="year-stats">
+			<input type="text" class="input-small" placeholder="Year" id="report-year-year" value="{% current_time "%Y" %}">
+			<button type="submit" class="btn btn-info">Generate Year Report <i class="icon-book icon-white"></i></button>
+		</form>
+		<form class="well form-inline" id="month-stats">
+			<input type="text" id="report-year-month" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+			<select class="span1" id="report-month-month">
+				<option value="jan">Jan</option>
+				<option value="feb">Feb</option>
+				<option value="mar">Mar</option>
+				<option value="apr">Apr</option>
+				<option value="may">May</option>
+				<option value="jun">Jun</option>
+				<option value="jul">Jul</option>
+				<option value="aug">Aug</option>
+				<option value="sep">Sep</option>
+				<option value="oct">Oct</option>
+				<option value="nov">Nov</option>
+				<option value="dec">Dec</option>
+			</select>
+			<button type="submit" class="btn btn-info">Generate Month Report <i class="icon-book icon-white"></i></button>
+		</form>
+		<h2>Breakdown Reports</h2>
+		<form class="well form-inline" id="breakdown-week">
+			<input type="text" class="input-small" placeholder="Year" id="breakdown-week-year" value="{% current_time "%Y" %}">
+			<input type="text" class="input-small" placeholder="Week" id="breakdown-week-week" >
+			<button type="submit" class="btn btn-info">Generate Week Breakdown <i class="icon-book icon-white"></i></button>
+		</form>
+		<!--
+		<form class="well form-inline" id="breakdown-day">
+			<input type="text" id="breakdown-day-year" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+			<select class="span1" id="breakdown-day-month">
+				<option value="jan">Jan</option>
+				<option value="feb">Feb</option>
+				<option value="mar">Mar</option>
+				<option value="apr">Apr</option>
+				<option value="may">May</option>
+				<option value="jun">Jun</option>
+				<option value="jul">Jul</option>
+				<option value="aug">Aug</option>
+				<option value="sep">Sep</option>
+				<option value="oct">Oct</option>
+				<option value="nov">Nov</option>
+				<option value="dec">Dec</option>
+			</select>
+			<input type="text" class="input-small" placeholder="Day" id="breakdown-day-day" >
+			<button type="submit" class="btn btn-info">Generate Day Breakdown <i class="icon-book icon-white"></i></button>
+		</form>
+		-->
+	</div>
+</div>
+{% endblock %}
+{% block contenttwo %}
+<img src="{{MEDIA_URL}}{{team.logo}}"  class="infologo"/>
+<h2>Supervisor</h2>
+<p>{{super.name}}</p>
+<h2>Agents</h2>
+<p>
+{% for Agent in agent %}
+        <a href="/agent/{{ Agent.slug }}/">{{ Agent.name }}</a><br/>
+{% endfor %}
+</p>
+<h2>Products</h2>
+<p>{{ team.products|safe }}</p>
+<hr />
+<a href="/team/{{ team.slug }}/info/" class="btn btn-primary">Info page</a>
+<hr />
+{% endblock %}
+{% block highcharts %}
+<script>
+	$("#year-review").submit(function() {
+		$url = "{% print_site_url %}team/{{team.slug}}/"+$('#review-year-year').val();
+		window.location = $url;
+		return false;
+	});
+	$("#month-review").submit(function() {
+		$url = "{% print_site_url %}team/{{team.slug}}/"+$('#review-year-month').val()+"/"+$('#review-month-month').val();
+		window.location = $url;
+		return false;
+	});
+	$("#year-stats").submit(function() {
+		$url = "{% print_site_url %}reports/team/{{team.slug}}/"+$('#report-year-year').val();
+		window.location = $url;
+		return false;
+	});
+	$("#month-stats").submit(function() {
+		$url = "{% print_site_url %}reports/team/{{team.slug}}/"+$('#report-year-month').val()+"/"+$('#report-month-month').val();
+		window.location = $url;
+		return false;
+	});
+	$("#breakdown-week").submit(function() {
+		$weeknum = $('#breakdown-week-week').val();
+		if($weeknum.length < 2){
+			$weeknum = "0"+$weeknum;
+		}
+		$url = "{% print_site_url %}reports/team/{{team.slug}}/"+$('#breakdown-week-year').val()+"/"+$weeknum;
+		window.location = $url;
+		return false;
+	});
+	$("#breakdown-day").submit(function() {
+		$day = $('#breakdown-day-day').val();
+		if($day.length < 2){
+			$day = "0"+day;
+		}
+		$url = "{% print_site_url %}reports/team/{{team.slug}}/"+$('#breakdown-day-year').val()+"/"+$('#breakdown-day-month').val()+"/"+$day;
+		window.location = $url;
+		return false;
+	});
+</script>
+{% endblock %}

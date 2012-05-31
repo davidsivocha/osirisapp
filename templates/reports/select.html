@@ -1,0 +1,131 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" />{% endblock %}
+{% block extrascripts %}
+<script src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+{% endblock %}
+{% block title %}Report Select{% endblock %}
+{% block pagetitle %}Report Select{% endblock %}
+{% block content %}
+<h1>Agent Performance Reports</h1>
+<form class="well form-inline" id="agent-year-review">
+	<select id="agent-year-agent">
+		{% for agent in agentlist %}
+			<option value="{{agent.slug}}">{{agent.name}}</option>
+		{% endfor %}
+	</select>
+	<input type="text" class="input-small" placeholder="Year" id="agent-year-year" value="{% current_time "%Y" %}">
+	<button type="submit" class="btn btn-success">Agent Year Review <i class="icon-user icon-white"></i></button>
+</form>
+<form class="well form-inline" id="agent-month-review">
+	<select id="agent-month-agent">
+		{% for agent in agentlist %}
+			<option value="{{agent.slug}}">{{agent.name}}</option>
+		{% endfor %}
+	</select>
+	<input type="text" id="agent-year-month" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+	<select class="span1" id="agent-month-month">
+		<option value="jan">Jan</option>
+		<option value="feb">Feb</option>
+		<option value="mar">Mar</option>
+		<option value="apr">Apr</option>
+		<option value="may">May</option>
+		<option value="jun">Jun</option>
+		<option value="jul">Jul</option>
+		<option value="aug">Aug</option>
+		<option value="sep">Sep</option>
+		<option value="oct">Oct</option>
+		<option value="nov">Nov</option>
+		<option value="dec">Dec</option>
+	</select>
+	<button type="submit" class="btn btn-success">Agent Month Review <i class="icon-user icon-white"></i></button>
+</form>
+
+<h1>Team Performance Reports</h1>
+
+<form class="well form-inline" id="team-year-review">
+	<select id="team-year-team">
+		{% for team in teamlist %}
+			<option value="{{team.slug}}">{{team.name}}</option>
+		{% endfor %}
+	</select>
+	<input type="text" class="input-small" placeholder="Year" id="team-year-year" value="{% current_time "%Y" %}">
+	<button type="submit" class="btn btn-info">Team Year Review <i class="icon-book icon-white"></i></button>
+</form>
+
+<form class="well form-inline" id="team-month-review">
+	<select id="team-month-team">
+		{% for team in teamlist %}
+			<option value="{{team.slug}}">{{team.name}}</option>
+		{% endfor %}
+	</select>
+	<input type="text" id="team-year-month" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+	<select class="span1" id="team-month-month">
+		<option value="jan">Jan</option>
+		<option value="feb">Feb</option>
+		<option value="mar">Mar</option>
+		<option value="apr">Apr</option>
+		<option value="may">May</option>
+		<option value="jun">Jun</option>
+		<option value="jul">Jul</option>
+		<option value="aug">Aug</option>
+		<option value="sep">Sep</option>
+		<option value="oct">Oct</option>
+		<option value="nov">Nov</option>
+		<option value="dec">Dec</option>
+	</select>
+	<button type="submit" class="btn btn-info">Team Month Review <i class="icon-book icon-white"></i></button>
+</form>
+
+<h1>Hours Reports</h1>
+<form class="well form-inline" id="hours-review">
+	<select id="hours-type">
+		<option value="other">Other Hours</option>
+		<option value="sick">Sick Hours</option>
+		<option value="hol">Holiday Hours</option>
+	</select>
+	<input type="text" id="hours-startdate" class="input-small" placeholder="Start Date">
+	<input type="text" id="hours-enddate" class="input-small" placeholder="End Date">
+	<button type="submit" class="btn btn-inverse">Hours Report <i class="icon-time icon-white"></i></button>
+</form>
+<h1>Agent Lists</h1>
+<br />
+<a href="/reports/agent/" class="btn btn-primary">Full Agent List <i class="icon-th-list icon-white"></i></a> <a href="/reports/agent/floorlist" class="btn btn-primary">Agent Floor List <i class="icon-th-list icon-white"></i></a> <a href="/reports/agent/academylist" class="btn btn-primary">Academy Agent List <i class="icon-th-list icon-white"></i></a><br /><br />
+{%endblock%}
+{% block highcharts %}
+<script>
+	$("#agent-year-review").submit(function() {
+		$url = "{% print_site_url %}reports/agent/"+$('#agent-year-agent').val()+"/"+$('#agent-year-year').val();
+		window.location = $url;
+		return false;
+	});
+	$("#agent-month-review").submit(function() {
+		$url = "{% print_site_url %}reports/agent/"+$('#agent-month-agent').val()+"/"+$('#agent-year-month').val()+"/"+$('#agent-month-month').val();
+		window.location = $url;
+		return false;
+	});
+	$("#team-year-review").submit(function() {
+		$url = "{% print_site_url %}reports/team/"+$('#team-year-team').val()+"/"+$('#team-year-year').val();
+		window.location = $url;
+		return false;
+	});
+	$("#team-month-review").submit(function() {
+		$url = "{% print_site_url %}reports/team/"+$('#team-month-team').val()+"/"+$('#team-year-month').val()+"/"+$('#team-month-month').val();
+		window.location = $url;
+		return false;
+	});
+	$("#hours-review").submit(function() {
+		$url = "{% print_site_url %}reports/hours/"+$('#hours-type').val()+"/"+$('#hours-startdate').val()+"/"+$('#hours-enddate').val();
+		window.location = $url;
+		return false;
+	});
+	$(function() {
+		$( "#hours-enddate" ).datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,
+			changeYear: true, minDate: new Date(1970, 1 - 1, 1), shortYearCutoff: 50, yearRange: 'c-3:c+3' });
+		$( "#hours-startdate" ).datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,
+			changeYear: true, minDate: new Date(1970, 1 - 1, 1), shortYearCutoff: 50, yearRange: 'c-3:c+3' });
+	});
+</script>
+{% endblock %}
+

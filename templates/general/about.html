@@ -1,0 +1,24 @@
+{% extends 'basenosplit.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}<link rel="stylesheet" href="{{MEDIA_URL}}css/orbit-1.2.3.css" type="text/css" media="screen" />{% endblock %}
+{% block title %}About the Osiris Information System{% endblock %}
+{% block pagetitle %}About the Osiris Information System{% endblock %}
+{% block smalltitle %}Information and Credits{% endblock %}
+{% block content %}
+<center><img src="{{STATIC_URL}}img/Logo.svg" style="height:25%; width:25%;" /></center>
+<hr />
+<p>Osiris is a sales agent management system that is designed to track sales agent statistics and provide performance reports based on a number of KPI's. The system uses daily stat and weekly stat input to generate a series of reports that are viewable by the agents and supervisors</p>
+<p>Designed and Built by <strong>David Sivocha</strong> using the <em>Django Framework</em></p>
+<p>Includes the following modules:</p>
+<ul>
+	<li>Jquery</li>
+	<li>The <strong>Orbit slider</strong> from <em>Zurb Foundation</em></li>
+	<li>The wonderful charts interface from <em>Highcharts</em></li>
+	<li>The <em>Tablesorter</em> Jquery plugin</li>
+	<li>The <em>Masked Input</em> Jquery plugin</li>
+	<li><em>Django-Admin-Tools extension</em> for Django</li>
+	<li><em>Django-Admin-Tools-Bootstrap</em> modification of Django-Admin-Tools</li>
+</ul>
+<p>Built using <strong>Bootstrap</strong> from <em>Twitter</em></p>
+{% endblock %}

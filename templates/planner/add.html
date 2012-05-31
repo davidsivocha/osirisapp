@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Osiris - Add Ticket{% endblock %}
+{% block pagetitle %}Add New Ticket{% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" />
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/chosen.css" />
+{% endblock %}
+{% block extrascripts %}
+<script type="text/javascript" src="{{STATIC_URL}}js/tiny_mce/tiny_mce.js" ></script >
+<script src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+<script src="{{STATIC_URL}}js/jquery.tablescroll.js" type="text/javascript"></script>
+<script src="{{STATIC_URL}}js/chosen.jquery.js" type="text/javascript"></script>
+<script type="text/javascript" >
+tinyMCE.init({
+        mode : "textareas",
+        theme : "simple"   //(n.b. no trailing comma, this will be critical as you experiment later)
+});
+$(function() {
+		$( ".date" ).datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,
+			changeYear: true, minDate: new Date(1970, 1 - 1, 1), shortYearCutoff: 50, yearRange: 'c-3:c+3' });
+		$('.typeahead').chosen();	
+	});
+</script >
+{% endblock %}
+{% block content %}
+<h2>Edit Planner Item</h2>
+<form action="/planner/add/" method="post" class="form-inline">{% csrf_token %}
+{% for field in form %}
+    <div class="fieldWrapper">
+		{% if field.errors %}
+		<div class="alert alert-error alert-block">
+			<h4 class="alert-heading">Warning</h4>
+			<p>{{field.label}} contains the following errors:</p>
+			{{ field.errors }}
+			<br />
+			<p>{{ field.label_tag }} : {{ field }}</p>
+		</div>
+		{% else %}
+        <p>{{ field.label_tag }} : {{ field }}</p>
+		{% endif %}
+    </div>
+{% endfor %}
+<input type="submit" class="btn btn-primary" value="Add new Ticket" />
+</form>
+{% endblock %}

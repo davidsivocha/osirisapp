@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}{{title}}{% endblock %}
+{% block pagetitle %}{{title}}{% endblock %}
+{% block content %}{{error}}
+<table class="table table-bordered table-striped">
+{% for agent in agentlist %}
+	<tr>
+		<td>{{agent}}</td>
+		<td>{{agent.teamid.name}}</td>
+	</tr>
+{% endfor %}
+</table>
+{% endblock %}
+{% block contenttwo %}
+<a href="/reports/" class="btn btn-info">Back</a><br />
+<hr />
+<a href="/reports/agent/" class="btn btn-primary">Full Agent List</a><br /><br />
+<a href="/reports/agent/floorlist" class="btn btn-primary">Agent Floor List</a><br /><br />
+<a href="/reports/agent/academylist" class="btn btn-primary">Academy Agent List</a><br /><br />
+{% endblock %}

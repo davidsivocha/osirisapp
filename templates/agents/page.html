@@ -1,0 +1,435 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block title %}{{ agent.name }}{% endblock %}
+{% block extrascripts %}
+<script src="{{STATIC_URL}}js/highcharts.src.js" type="text/javascript"></script>
+{% endblock %}
+{% block pagetitle %}{{ agent.name }}{% endblock %}
+{% block smalltitle %}{{ agent.get_agenttype_display }}{% endblock %}
+{% block content %}
+<ul class="tabs nav nav-tabs">
+	<li class="active tab-pane"><a data-toggle="tab" href="#personalbests">Stats</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#training">Training</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#candc">C &amp; C</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#sickhol">Sickness/Holidays</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#achievewarn">Incentives</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#qapps">Qualified Apps</a></li>
+	<li class="tab-pane"><a data-toggle="tab" href="#vol">Volume</a></li>
+	{% if perms.agents.super %}
+	<li class="tab-pane"><a data-toggle="tab" href="#report">Reports</a></li>
+	{% endif %}
+</ul>
+<div class="tab-content">
+	<div class="active tab-pane" id="personalbests">
+		<div id="container"></div>
+		<div class="row">
+			<div class="span4">
+			<h3>Year to Date Totals</h3>
+				<p>Total Call Time: {{totals.calltime__sum|humantime}}</p>
+				<p>Total Call Attempts: {{totals.callattempts__sum}}</p>
+				<p>Total Applications: {{totals.totalapps__sum}}</p>
+			</div>
+			<div class="span5">
+				<h3>Year to Date Averages</h3>
+				<p>Avg Call Time: {{fte.calltime|humantime}}</p>
+				<p>Avg Call Attempts: {{fte.callattempts}}</p>
+				<p>FTE Applications: {{fte.totalapps|floatformat:2}}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span4">
+			<h3>Month to Date Totals: {{month}}</h3>
+				<p>Total Call Time: {{monthtotals.calltime__sum|humantime}}</p>
+				<p>Total Call Attempts: {{monthtotals.callattempts__sum}}</p>
+				<p>Total Applications: {{monthtotals.totalapps__sum}}</p>
+			</div>
+			<div class="span5">
+				<h3>Month to Date Averages: {{month}}</h3>
+				<p>Avg Call Time: {{monthfte.calltime|humantime}}</p>
+				<p>Avg Call Attempts: {{monthfte.callattempts}}</p>
+				<p>FTE Applications: {{monthfte.totalapps|floatformat:2}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane" id="training">
+		<table class="table table-condensed table-bordered table-striped">
+			<thead><tr>
+				<td>Date</td>
+				<td>Type</td>
+				<td>Files</td>
+			</tr></thead>
+			<tbody>
+			{% for Training in training %}
+				<tr>
+				<td>{{Training.date}}</td><td>{{Training.get_trainingtype_display}}</td><td><a href="{{MEDIA_URL}}{{Training.files}}">{{Training.files}}</a></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="sickhol">
+		<div class="row">	
+			<div class="span4">
+				<h3>Sickness</h3>
+				<table class="table table-condensed table-bordered table-striped">
+					<thead><tr>
+						<td>Date</td><td>Hours</td>
+					</tr></thead>
+					{% for Dstat in sick %}
+						<tr>
+							<td>{{Dstat.date|date:"D d/m/Y" }}</td>
+							<td>{{Dstat.sickhours}}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div class="span4">
+				<h3>Holiday</h3>
+				<table class="table table-condensed table-bordered table-striped">
+					<thead><tr>
+						<td>Date</td><td>Hours</td>
+					</tr></thead>
+					{% for Dstat in hol %}
+						<tr>
+							<td>{{Dstat.date|date:"D d/m/Y" }}</td>
+							<td>{{Dstat.holhours}}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane" id="achievewarn">
+	{% for Incentive in acheive %}
+		{% if Incentive.incentive == "A" %}
+			<p><span class="label label-success">Achievement</span> {{Incentive.date|date:"D d/m/Y"}}</p> {{Incentive.comment|safe}}
+		{% else %}
+			<p><span class="label label-important">Warning</span> {{Incentive.date|date:"D d/m/Y"}}</p> {{Incentive.comment|safe}}
+		{% endif %}
+	{% endfor %}
+	</div>
+	<div class="tab-pane" id="candc">
+		<table class="table table-condensed table-bordered table-striped">
+			<thead><tr>
+				<td>Date</td>
+				<td>Type</td>
+				<td>Score</td>
+				<td>Notes</td>
+			</tr></thead>
+			<tbody>
+			{% for record in candc %}
+				<tr>
+					<td>{{record.date}}</td>
+					<td>{{record.get_type_display}}</td>
+					<td>{{record.score}}</td>
+					<td>{{record.notes|safe}}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="qapps">
+		<div id="qappschart"></div>
+		<table id="qappstable" class="datatable table table-bordered table-striped hidden-data">
+			<thead>
+				<tr>
+					<th></th>
+					<th>{{agent.name}}</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for key,value in qapps.items %}
+				<tr>
+					<th>{{key}}</th>
+					<td>{{value}}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane" id="vol">
+		<div id="volchart"></div>
+		<table id="voltable" class="datatable table table-bordered table-striped hidden-data">
+			<thead>
+				<tr>
+					<th></th>
+					<th>{{agent.name}}</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for key,value in vol.items %}
+				<tr>
+					<th>{{key}}</th>
+					<td>{{value}}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	{% if perms.agents.super %}
+	<div class="tab-pane" id="report">
+		<h2>Agent Reviews</h2>
+	    <form class="well form-inline" id="year-review">
+			<input type="text" class="input-small" placeholder="Year" id="review-year-year" value="{% current_time "%Y" %}">
+			<button type="submit" class="btn btn-success">Generate Year Review <i class="icon-print icon-white"></i></button>
+		</form>
+		<form class="well form-inline" id="month-review">
+			<input type="text" id="review-year-month" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+			<select class="span1" id="review-month-month">
+				<option value="jan">Jan</option>
+				<option value="feb">Feb</option>
+				<option value="mar">Mar</option>
+				<option value="apr">Apr</option>
+				<option value="may">May</option>
+				<option value="jun">Jun</option>
+				<option value="jul">Jul</option>
+				<option value="aug">Aug</option>
+				<option value="sep">Sep</option>
+				<option value="oct">Oct</option>
+				<option value="nov">Nov</option>
+				<option value="dec">Dec</option>
+			</select>
+			<button type="submit" class="btn btn-success">Generate Month Review <i class="icon-print icon-white"></i></button>
+		</form>
+		<h2>Performance Reports</h2>
+		<form class="well form-inline" id="year-stats">
+			<input type="text" class="input-small" placeholder="Year" id="report-year-year" value="{% current_time "%Y" %}">
+			<button type="submit" class="btn btn-info">Generate Year Report <i class="icon-book icon-white"></i></button>
+		</form>
+		<form class="well form-inline" id="month-stats">
+			<input type="text" id="report-year-month" class="input-small" placeholder="Year" value="{% current_time "%Y" %}">
+			<select class="span1" id="report-month-month">
+				<option value="jan">Jan</option>
+				<option value="feb">Feb</option>
+				<option value="mar">Mar</option>
+				<option value="apr">Apr</option>
+				<option value="may">May</option>
+				<option value="jun">Jun</option>
+				<option value="jul">Jul</option>
+				<option value="aug">Aug</option>
+				<option value="sep">Sep</option>
+				<option value="oct">Oct</option>
+				<option value="nov">Nov</option>
+				<option value="dec">Dec</option>
+			</select>
+			<button type="submit" class="btn btn-info">Generate Month Report <i class="icon-book icon-white"></i></button>
+		</form>
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}
+{% block contenttwo %}
+<div class="avatar"><img src="{{MEDIA_URL}}{{agent.picture}}" /></div>
+<br />
+<h2>Team: <a href="/team/{{agent.teamid.slug}}">{{agent.teamid.name}}</a></h2>
+<p>Birthday: {{agent.birthday|date:"d - M"}}</p>
+<p>Start Date: {{agent.startdate|date:"d - M"}}</p>
+<p>Extension: {{agent.ext}}</p>
+<p>On Leave: {{agent.haveleft}}</p>
+{% if agent.haveleft %}
+	<p>Date Left: {{agent.leavedate}}</p>
+	<p>Leave Reason: {{agent.leavereason|safe}}</p>
+	<p>Permanent leave: {{agent.permanentleave}}</p>
+{% endif %}
+{% endblock %}
+{% block highcharts %}
+<script>
+			$("#year-review").submit(function() {
+				$url = "{% print_site_url %}agent/{{agent.slug}}/"+$('#review-year-year').val();
+				window.location = $url;
+				return false;
+			});
+			$("#month-review").submit(function() {
+				$url = "{% print_site_url %}agent/{{agent.slug}}/"+$('#review-year-month').val()+"/"+$('#review-month-month').val();
+				window.location = $url;
+				return false;
+			});
+			$("#year-stats").submit(function() {
+				$url = "{% print_site_url %}reports/agent/{{agent.slug}}/"+$('#report-year-year').val();
+				window.location = $url;
+				return false;
+			});
+			$("#month-stats").submit(function() {
+				$url = "{% print_site_url %}reports/agent/{{agent.slug}}/"+$('#report-year-month').val()+"/"+$('#report-month-month').val();
+				window.location = $url;
+				return false;
+			});
+		</script>
+<script>
+var chart;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         zoomType: 'x'
+      },
+      title: {
+         text: 'Call Time, Call Attempts and Application Averages'
+      },
+      xAxis: [{
+         categories: {{weeks}}
+      }],
+      yAxis: [{ // Primary yAxis
+         labels: {
+            formatter: function() {
+               return this.value;
+            },
+            style: {
+               color: '#89A54E'
+            }
+         },
+         title: {
+            text: 'Calltime and Call Attempts',
+            style: {
+               color: '#89A54E'
+            }
+         }
+      }, { // Secondary yAxis
+         title: {
+            text: 'Applications',
+            style: {
+               color: '#4572A7'
+            }
+         },
+         labels: {
+            formatter: function() {
+               return this.value;
+            },
+            style: {
+               color: '#4572A7'
+            }
+         },
+         opposite: true
+      }],
+      tooltip: {
+         formatter: function() {
+            return 'Week '+
+               this.x +': '+ this.y + ' ' + this.series.name;
+         }
+      },
+      series: [{
+         name: 'Applications',
+         type: 'column',
+         yAxis: 1,
+         data: [{% for each in apps %}{{each}},{% endfor %}]
+      
+      }, {
+         name: 'Call Time',
+         type: 'spline',
+         data: {{calltime}}
+		 
+      }, {
+         name: 'Call Attempts',
+         type: 'spline',
+         data: {{callattempts}}
+      }]
+   });
+   
+   var qapps = document.getElementById('qappstable'),
+	qappsoptions = {
+         chart: {
+            renderTo: 'qappschart',
+            defaultSeriesType: 'column',
+			width: 700,
+			zoomType: 'x'
+         },
+         title: {
+            text: 'Qualified Applications '
+         },
+         xAxis: {
+			title: {
+               text: 'Months'
+            },
+			labels: {
+				rotation: -45,
+				align: 'right',
+				style: {
+					font: 'normal 13px Verdana, sans-serif'
+				}
+			},
+         },
+         yAxis: {
+            title: {
+               text: 'Applications'
+            }
+         },
+         tooltip: {
+            formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+
+                  this.y +' Applications';
+            }
+         }
+      };
+	Highcharts.visualize(qapps, qappsoptions);
+
+	var vol = document.getElementById('voltable'),
+	voloptions = {
+         chart: {
+            renderTo: 'volchart',
+            defaultSeriesType: 'area',
+			width: 700,
+			zoomType: 'x'
+         },
+         title: {
+            text: 'Monthly Volume'
+         },
+         xAxis: {
+			title: {
+               text: 'Months'
+            },
+			labels: {
+				rotation: -45,
+				align: 'right',
+				style: {
+					font: 'normal 13px Verdana, sans-serif'
+				}
+			},
+         },
+         yAxis: {
+            title: {
+               text: 'Litres'
+            }
+         },
+         tooltip: {
+            formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+
+                  this.y +' litres';
+            }
+         }
+      };
+	Highcharts.visualize(vol, voloptions);
+});
+
+Highcharts.visualize = function(table, options) {
+   // the categories
+   options.xAxis.categories = [];
+   $('tbody th', table).each( function(i) {
+      options.xAxis.categories.push(this.innerHTML);
+   });
+   
+   // the data series
+   options.series = [];
+   $('tr', table).each( function(i) {
+      var tr = this;
+      $('th, td', tr).each( function(j) {
+         if (j > 0) { // skip first column
+            if (i == 0) { // get the name and init the series
+               options.series[j - 1] = { 
+                  name: this.innerHTML,
+                  data: []
+               };
+            } else { // add values
+               options.series[j - 1].data.push(parseFloat(this.innerHTML));
+            }
+         }
+      });
+   });
+   
+   var chart = new Highcharts.Chart(options);
+}
+
+</script>
+{% endblock %}
