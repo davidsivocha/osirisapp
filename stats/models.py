@@ -136,7 +136,7 @@ class MonthlyAdmin(admin.ModelAdmin):
     list_display = ('agent', 'isomonth', 'isoyear', 'volume', 'drawcust')
     list_filter = ['isomonth', 'isoyear']
     fieldsets = [
-        ('Monthly Volume', {'fields': ['agent', ('isomonth', 'isoyear'), ('volume', 'drawcust', 'growth')]}),
+        ('Monthly Volume', {'fields': ['agent', ('isomonth', 'isoyear'), ('volume', 'growth', 'drawcust')]}),
     ]
     search_fields = ['agent__name']
     ordering = ['-isomonth']

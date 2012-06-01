@@ -373,6 +373,7 @@ def team_yearly_stats(year): #done
 
 	return teamstats
 
+@login_required
 def stats_today(request): #done
 	thedate = datetime.today()-timedelta(days=1)
 	if thedate.isoweekday() == 7:
@@ -451,6 +452,7 @@ def stats_today(request): #done
 
 	return response
 
+@login_required
 def stats_this_week(request): #done
 	thedate = datetime.today()-timedelta(days=1)
 	if thedate.isoweekday() == 7:
@@ -472,6 +474,7 @@ def stats_this_week(request): #done
     
 	return response
 
+@login_required
 def stats_this_month(request): #done
 	thedate = datetime.today()-timedelta(days=1)
 	if thedate.isoweekday() == 7:
@@ -493,6 +496,7 @@ def stats_this_month(request): #done
     
 	return response
 
+@login_required
 def stats_this_year(request): #done
 	thedate = datetime.today()-timedelta(days=1)
 	if thedate.isoweekday() == 7:
@@ -513,6 +517,7 @@ def stats_this_year(request): #done
     
 	return response
 
+@login_required
 def stats_day(request, year, month, day): #done
 	stat = daily_stats(year, month, day)
 
@@ -583,6 +588,7 @@ def stats_day(request, year, month, day): #done
 
 	return response
 
+@login_required
 def stats_day_print(request, year, month, day): 
 	var = [year, month_number(month), day]
 	date = '-'.join(var)
@@ -630,13 +636,21 @@ def stats_day_print(request, year, month, day):
 		if teamstats['calltime__sum'] > 0 and teamstats['prodhours__sum'] > 0:
 			calltime = teamstats['calltime__sum'] / (teamstats['prodhours__sum'] / targets.hours)
 			calltime = int(calltime)
+		else:
+			calltime = 0
 		if teamstats['callattempts__sum'] > 0 and teamstats['prodhours__sum'] > 0:
 			callattempts = teamstats['callattempts__sum'] / (teamstats['prodhours__sum'] / targets.hours)
 			callattempts = int(callattempts)
+		else:
+			callattempts = 0
 		if teamstats['totalapps__sum'] > 0 and teamstats['prodhours__sum'] > 0:
 			totalapps = teamstats['totalapps__sum'] 
+		else:
+			totalapps = 0
 		if teamstats['totalapps__sum'] > 0 and teamstats['prodhours__sum'] > 0 and teamstats['sickhours__sum'] > 0:
 			fteapps = teamstats['totalapps__sum'] / ((teamstats['prodhours__sum'] + teamstats['sickhours__sum'] + teamstats['innovhours__sum']) / targets.hours)
+		else:
+			fteapps = 0
 		statteams.append([teams.name, calltime, callattempts, totalapps, mtdapps, fteapps, "", "", 0, "", 1, 0])
 		calltime = 0
 		callattempts = 0
@@ -675,13 +689,21 @@ def stats_day_print(request, year, month, day):
 		if stats['calltime__sum'] > 0:
 			calltime = stats['calltime__sum'] / (stats['prodhours__sum'] / targets.hours)
 			calltime = int(calltime)
+		else:
+			calltime = 0
 		if stats['callattempts__sum'] > 0:
 			callattempts = stats['callattempts__sum'] / (stats['prodhours__sum'] / targets.hours)
-			callattemtps = int(callattempts)
+			callattempts = int(callattempts)
+		else:
+			callattempts = 0
 		if stats['totalapps__sum'] > 0:
 			totalapps = stats['totalapps__sum'] 
+		else: 
+			totalapps = 0
 		if stats['totalapps__sum'] > 0:
 			fteapps = stats['totalapps__sum'] / ((stats['prodhours__sum'] + stats['sickhours__sum'] + stats['innovhours__sum']) / targets.hours)
+		else:
+			fteapps = 0
 		statteams.append([teams.name, calltime, callattempts, totalapps, monthstat['totalapps__sum'], fteapps, "", "", 0, "", 1, 0])
 		calltime = 0
 		callattempts = 0
@@ -707,13 +729,21 @@ def stats_day_print(request, year, month, day):
 		if stats['calltime__sum'] > 0 and stats['prodhours__sum'] > 0:
 			calltime = stats['calltime__sum'] / (stats['prodhours__sum'] / targets.hours)
 			calltime = int(calltime)
+		else:
+			calltime = 0
 		if stats['callattempts__sum'] > 0 and stats['prodhours__sum'] > 0:
 			callattempts = stats['callattempts__sum'] / (stats['prodhours__sum'] / targets.hours)
-			callattemtps = int(callattempts)
+			callattempts = int(callattempts)
+		else:
+			callattempts = 0
 		if stats['totalapps__sum'] > 0:
 			totalapps = stats['totalapps__sum'] 
+		else:
+			totalapps = 0
 		if stats['totalapps__sum'] > 0 and stats['prodhours__sum'] > 0 and stats['sickhours__sum'] >= 0:
 			fteapps = stats['totalapps__sum'] / ((stats['prodhours__sum'] + stats['sickhours__sum'] + stats['innovhours__sum']) / targets.hours)
+		else:
+			fteapps = 0
 		tstats.append([teams.name, calltime, callattempts, totalapps, fteapps])
 		calltime = 0
 		callattempts = 0
@@ -728,13 +758,21 @@ def stats_day_print(request, year, month, day):
 	if dstatstotals['calltime__sum'] > 0:
 		totalcalltime = dstatstotals['calltime__sum'] / (dstatstotals['prodhours__sum'] / targets.hours)
 		totalcalltime = int(totalcalltime)
+	else:
+		totalcalltime = 0
 	if dstatstotals['callattempts__sum'] > 0:
 		totalcallattempts = dstatstotals['callattempts__sum'] / (dstatstotals['prodhours__sum'] / targets.hours)
-		totalcallattemtps = int(totalcallattempts)
+		totalcallattempts = int(totalcallattempts)
+	else:
+		totalcallattempts = 0
 	if dstatstotals['totalapps__sum'] > 0:
 		floortotalapps = dstatstotals['totalapps__sum'] 
+	else:
+		floortotalapps = 0
 	if dstatstotals['totalapps__sum'] > 0:
 		floorfteapps = dstatstotals['totalapps__sum'] / ((dstatstotals['prodhours__sum'] + dstatstotals['sickhours__sum'] + dstatstotals['innovhours__sum']) / targets.hours)
+	else:
+		floorfteapps = 0
 	totals.append(totalcalltime) 
 	totals.append(totalcallattempts)
 	totals.append(floortotalapps)
@@ -892,6 +930,7 @@ def stats_day_print(request, year, month, day):
 
 	return response
 
+@login_required
 def stats_day_print_excel(request, year, month, day): 
 	stat = daily_stats(year, month, day)
 
@@ -902,6 +941,7 @@ def stats_day_print_excel(request, year, month, day):
     
 	return response
 
+@login_required
 def stats_year(request, year): #done
 	stat = yearly_stats(year)
 
@@ -916,6 +956,7 @@ def stats_year(request, year): #done
     
 	return response
 
+@login_required
 def stats_month(request, year, month): #done
 	stat = monthly_stats(year, month)
 
@@ -930,6 +971,7 @@ def stats_month(request, year, month): #done
     
 	return response
 
+@login_required
 def stats_week(request, year, week): #done
 	stat = weekly_stats(year, week)
 
@@ -944,6 +986,7 @@ def stats_week(request, year, week): #done
     
 	return response
 
+@login_required
 def stats_team_year(request, year): #done
 	stats = team_yearly_stats(year)
 
@@ -958,6 +1001,7 @@ def stats_team_year(request, year): #done
     
 	return response
 
+@login_required
 def stats_team_month(request, year, month): #done
 	stats = team_monthly_stats(year, month)
 
@@ -972,6 +1016,7 @@ def stats_team_month(request, year, month): #done
     
 	return response
 
+@login_required
 def stats_team_day(request, year, month, day): #done
 	stats = team_daily_stats(year, month, day)
 
@@ -987,6 +1032,7 @@ def stats_team_day(request, year, month, day): #done
     
 	return response
 
+@login_required
 def stats_team_week(request, year, week): #done
 	stats = team_weekly_stats(year, week)
 
@@ -1282,10 +1328,10 @@ def stats_input_weeklystats(request):
 				wstat = WeeklyStats(agent=agent,isoyear=isoyear,isomonth=isomonth, isoweek=isoweek,volume=volume, drawcust=drawcust)
 				wstat.save()
 
-				mstat = MonthlyStats.objects.filter(agent=agent).filter(isomonth=isomonth)
-				for stat in mstat:
-					stat.volume += volume
-					stat.save()
+				#mstat = MonthlyStats.objects.filter(agent=agent).filter(isomonth=isomonth)
+				#for stat in mstat:
+				#	stat.volume += volume
+				#	stat.save()
 
 			pass
 			url = "/stats/" 

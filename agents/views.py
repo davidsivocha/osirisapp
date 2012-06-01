@@ -179,7 +179,8 @@ def agent_page(request, agent): #done
     response = render_to_response(template, context)
     
     return response
-    
+
+@login_required
 def agent_year_review(request, agent, year): #done
     user = request.user.get_profile()
     type = int(user.agenttype)
@@ -366,7 +367,8 @@ def agent_year_review(request, agent, year): #done
     p.save()
 
     return response
-    
+
+@login_required  
 def agent_month_review(request, agent, year, month): #done
     user = request.user.get_profile()
     type = int(user.agenttype)

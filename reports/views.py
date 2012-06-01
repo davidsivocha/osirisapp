@@ -17,6 +17,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
 from extras.views import month_display, month_number, humantime
 from decimal import *
 
+@login_required
 def report_select(request): #done
 	agentlist = Agent.objects.filter(haveleft=0).filter(agenttype=0).order_by('teamid')
 	teamlist = Teams.objects.all()
@@ -28,6 +29,7 @@ def report_select(request): #done
     
 	return response
 
+@login_required
 def report_agent_list(request): #done
 	title = "Full Agent List"
 	agentlist = Agent.objects.filter(haveleft=0).filter(agenttype=0).order_by('teamid__name', 'name')
@@ -39,6 +41,7 @@ def report_agent_list(request): #done
     
 	return response
 
+@login_required
 def report_agent_floor(request): #done
 	title = "Floor Agent List"
 	agentlist = Agent.objects.filter(haveleft=0).filter(agenttype=0).exclude(teamid__teamtype=5).exclude(teamid__teamtype=4).order_by('teamid__name')
@@ -50,6 +53,7 @@ def report_agent_floor(request): #done
     
 	return response
 
+@login_required
 def report_agent_academy(request): #done
 	title = "Academy Agent List"
 	agentlist = Agent.objects.filter(haveleft=0).exclude(teamid__teamtype=3).exclude(teamid__teamtype=5).exclude(teamid__teamtype=4).order_by('teamid__name', 'name')
@@ -60,6 +64,7 @@ def report_agent_academy(request): #done
     
 	return response 
 
+@login_required
 def report_team_stat_year(request, team, year, excel=0): #done
 	team = get_object_or_404(Teams, slug=team)
 	title = team.name + " Performance: " + year
@@ -113,6 +118,7 @@ def report_team_stat_year(request, team, year, excel=0): #done
 	    
 		return response
 
+@login_required
 def report_team_stat_month(request, team, year, month, excel=0): #done
 	team = get_object_or_404(Teams, slug=team)
 	title = team.name + " Performance: " +month_display(month) + " "+ year
@@ -166,6 +172,7 @@ def report_team_stat_month(request, team, year, month, excel=0): #done
 	    
 		return response
 
+@login_required
 def report_agent_stat_year(request, agent, year, excel=0): #done
 	agent = get_object_or_404(Agent, slug=agent)
 	title = agent.name + " Performance: "+ year
@@ -200,6 +207,7 @@ def report_agent_stat_year(request, agent, year, excel=0): #done
     
 		return response
 
+@login_required
 def report_agent_stat_month(request, agent, year, month, excel=0): #done
 	agent = get_object_or_404(Agent, slug=agent)
 	title = agent.name + " Performance: " +month_display(month) + " "+ year
@@ -234,6 +242,7 @@ def report_agent_stat_month(request, agent, year, month, excel=0): #done
 	    
 		return response
 
+@login_required
 def report_hours(request, type, startdate, enddate): #done
 	if type == "other":
 		title = "Other Hours Report: " + startdate + " to " + enddate
@@ -278,6 +287,7 @@ def report_hours(request, type, startdate, enddate): #done
     
 	return response
 
+@login_required
 def report_team_stat_week(request, team, year, week, excel=0): 
 	team = get_object_or_404(Teams, slug=team)
 	agents = Agent.objects.filter(teamid=team).filter(haveleft=0).filter(agenttype=0)
@@ -348,6 +358,7 @@ def report_team_stat_week(request, team, year, week, excel=0):
     
 		return response
 
+@login_required
 def report_team_stat_day(request, team, year, month, day): 
 	team = get_object_or_404(Teams, slug=team)
 	agents = Agent.objects.filter(teamid=team).filter(haveleft=0)

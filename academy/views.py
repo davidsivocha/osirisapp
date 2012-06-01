@@ -9,6 +9,7 @@ from agents.models import Agent
 from team.models import Teams, Targets
 from django.db.models import Avg, Max, Min, Count, Sum
 from extras.views import month_display, month_number
+from django.contrib.auth.decorators import login_required
 
 def sort_inner(inner):
 	"""
@@ -155,7 +156,7 @@ def academy_year(year):
 	previous = 0
 
 
-
+@login_required
 def academy_current_winners(request):
 	thedate = datetime.today()-timedelta(days=14)
 	month = thedate.strftime("%b").lower()
@@ -172,6 +173,7 @@ def academy_current_winners(request):
     
 	return response
 
+@login_required
 def academy_year_winners(request, year):
 	academy = academy_year(year)
 	academy.sort(key=sort_inner, reverse=True)
@@ -183,7 +185,7 @@ def academy_year_winners(request, year):
     
 	return response
     
-
+@login_required
 def academy_month_winners(request, year, month):
 	display = month_display(month)
 
@@ -197,7 +199,7 @@ def academy_month_winners(request, year, month):
     
 	return response
     
-
+@login_required
 def academy_current_leaderboard(request):
 	thedate = datetime.today()-timedelta(days=14)
 	month = thedate.strftime("%b").lower()
@@ -214,7 +216,7 @@ def academy_current_leaderboard(request):
     
 	return response
     
-
+@login_required
 def academy_year_leaderboard(request, year):
 	academy = academy_year(year)
 	academy.sort(key=sort_inner)
@@ -226,7 +228,7 @@ def academy_year_leaderboard(request, year):
     
 	return response
     
-
+@login_required
 def academy_month_leaderboard(request, year, month):
 	display = month_display(month)
 
@@ -241,7 +243,7 @@ def academy_month_leaderboard(request, year, month):
 	return response
     
 
-	
+@login_required	
 def academy_calendar_select(request):
 	template = 'academy/calendar.html'
 	context = RequestContext(request, {})
@@ -249,7 +251,8 @@ def academy_calendar_select(request):
 	response = render_to_response(template, context)
     
 	return response
-    
+
+@login_required    
 def academy_quarter_leaderboard(request, year, quarter):
 	quarters = {1:['jan', 'feb', 'mar'], 2:['apr', 'may', 'jun'], 3:['jul', 'aug', 'sep'], 4:['oct', 'nov', 'dec']}
 	run = quarters[int(quarter)]
@@ -304,6 +307,7 @@ def academy_quarter_leaderboard(request, year, quarter):
     
 	return response
 
+@login_required
 def academy_quarter_winners(request, year, quarter):
 	quarters = {1:['jan', 'feb', 'mar'], 2:['apr', 'may', 'jun'], 3:['jul', 'aug', 'sep'], 4:['oct', 'nov', 'dec']}
 	run = quarters[int(quarter)]
@@ -358,6 +362,7 @@ def academy_quarter_winners(request, year, quarter):
 
 	return response
 
+@login_required
 def academyboardtemp(request):
 	ctlist = []
 	qalist = []
@@ -468,6 +473,8 @@ def academyboardtemp(request):
 	response = render_to_response(template, context)
 
 	return response
+
+@login_required
 def academyleaderboardtemp(request):
 	ctlist = []
 	qalist = []
@@ -577,7 +584,7 @@ def academyleaderboardtemp(request):
 
 	return response
 
-
+@login_required
 def academyleaderboardtempmonth(request, month):
 	ctlist = []
 	qalist = []
