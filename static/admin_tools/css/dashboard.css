@@ -44,7 +44,6 @@ h1.dashboard-title {
 #dashboard-panel ul {
     display: none;
     position: absolute;
-    list-style:none;
     top: auto;
     right: 25px;
     margin-top: -1px;
@@ -290,15 +289,6 @@ h1.dashboard-title {
 .group-accordion .dashboard-module {
     border: 0;
 }
-.odd .deletelink, .even .deletelink, .odd .changelink, .even .changelink{
-    margin-left:0px;
-    padding-left:0px;
-}
-.odd .deletelink:before, .even .deletelink:before{
-    content: url(../images/ic_delete.png);
-}
-.odd .changelink:before, .even .changelink:before{
-    content: url(../images/ic_edit.png);
-}
+
 
 /* }}} */

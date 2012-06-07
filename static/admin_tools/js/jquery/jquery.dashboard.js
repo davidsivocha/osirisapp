@@ -118,13 +118,8 @@
         var start = 0;
         var stop = 0;
         var last_stop = 0;
-        // don't break layout if columns count or elts count changed
-        var elts_count = 0;
-        for (var i in sizes) {
-            elts_count += sizes[i];
-        }
-        if (options.columns != sizes.length || elts_count != elts.length) {
-            // reset sizes so we don't break
+        if (options.columns != sizes.length) {
+            // don't break layout if columns count changed
             sizes = [];
         }
         for (var i = 0; i < options.columns; i++) {

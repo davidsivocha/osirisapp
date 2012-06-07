@@ -14,7 +14,6 @@ h1.dashboard-title {
 #dashboard-panel {
     margin: 0 10px 0 0;
     float: right;
-	display:hidden;
 }
 
 #dashboard-panel h3 a {

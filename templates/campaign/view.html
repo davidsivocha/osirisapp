@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}{% endblock %}
+{% block extrascripts %}{% endblock %}
+{% block title %}{{campaign.name}}{% endblock %}
+{% block pagetitle %}{{campaign.name}}{% endblock %}
+{% block smalltitle %}{% endblock %}
+{% block content %}{% endblock %}
+{% block contenttwo %}
+{{campaign.name}}
+{{campaign.team.name}}
+{{campaign.notes}}
+{% endblock %}

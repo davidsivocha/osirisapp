@@ -179,7 +179,7 @@ class CandCAdmin(admin.ModelAdmin):
 
 
 #admin.site.unregister(User)
-#admin.site.register(User, UserAdmin)
+#admin.site.register(User, AuthUserAdmin)
 admin.site.register(Agent, AgentAdmin)
 admin.site.register(Training, TrainingAdmin)
 admin.site.register(Incentive, IncentiveAdmin)

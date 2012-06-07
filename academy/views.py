@@ -361,7 +361,6 @@ def academy_quarter_winners(request, year, quarter):
 	response = render_to_response(template, context)
 
 	return response
-
 @login_required
 def academyboardtemp(request):
 	ctlist = []
