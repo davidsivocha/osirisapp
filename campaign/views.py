@@ -107,7 +107,7 @@ def campaign_edit(request, object_id): #done
 			form = CampaignForm(instance=campaign)
 
 			template = 'campaign/edit.html'
-			context = RequestContext(request, {'form':form, 'object_id':object_id})
+			context = RequestContext(request, {'form':form, 'object_id':object_id, 'campaign':campaign})
 
 			response = render_to_response(template, context)
 

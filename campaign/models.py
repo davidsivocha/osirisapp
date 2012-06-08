@@ -2,23 +2,6 @@ from django.db import models
 from team.models import Teams
 from django.contrib import admin
 
-# Create your models here.
-
-# campaign model
-# fields:
-# campaign name 
-# team 
-# # of leads bought
-# price
-# start date
-# end date
-# campaign notes
-
-# campaign stats model
-# fields:
-# date
-# # of applications
-
 # campaign week stats model
 # fields:
 # week
@@ -55,7 +38,7 @@ class Campaign(models.Model):
 		verbose_name = "Campaign"
 		verbose_name_plural = "Campaigns" 
 	def __unicode__(self):
-		return u': %s' % (self.name)
+		return u'%s' % (self.name)
 
 class CampaignStats(models.Model):
 	campaign = models.ForeignKey(Campaign)

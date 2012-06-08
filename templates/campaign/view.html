@@ -21,7 +21,7 @@
 {% endblock %}
 {% block contenttwo %}
 <a href="/campaign/" class="g-button blue">&lt; Back</a>
-<a href="/campaign/{{campaign.id}}/edit/" class="g-button red">Edit</a>
+<a href="/campaign/{{campaign.id}}/edit/" class="g-button red"><i class="icon-pencil icon-white"></i>  Edit</a>
 <hr />
 <img src="{{MEDIA_URL}}{{campaign.team.logo}}"  class="infologo"/>
 <h1>{{campaign.team.name}}</h1>
@@ -29,7 +29,7 @@
 <h2>Campaign Notes</h2>
 {{campaign.notes|safe}}
 <h2>Campaign Status</h2>
-<a class="g-button red">{{status}}</a>
+<a class="g-button">{{status}}</a>
 <a href="/campaign/{{campaign.id}}/stats/" class="g-button green"><i class="icon-plus icon-white"></i>Add Stats</a>
 {% endblock %}
 {% block highcharts %}

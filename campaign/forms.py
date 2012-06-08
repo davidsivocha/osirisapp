@@ -8,4 +8,8 @@ from campaign.models import Campaign
 class CampaignForm(forms.ModelForm):
     class Meta:
         model = Campaign
+        widgets = {
+        	'startdate': TextInput(attrs={'class':'date'}),
+        	'enddate': TextInput(attrs={'class':'date'}),
+        }
     

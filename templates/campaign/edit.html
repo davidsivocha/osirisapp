@@ -1,16 +1,30 @@
 {% extends 'base.html' %}
 {% load osiris_extras %}
 {% load humanize %}
-{% block extrastyle %}{% endblock %}
-{% block extrascripts %}{% endblock %}
-{% block title %}{% endblock %}
-{% block pagetitle %}{% endblock %}
-{% block smalltitle %}{% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" />
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/google-buttons.css" />
+{% endblock %}
+{% block extrascripts %}
+<script src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+<script src="{{STATIC_URL}}js/jquery.tablescroll.js" type="text/javascript"></script>
+{% endblock %}
+{% block title %}Editing {{campaign.name}}{% endblock %}
+{% block pagetitle %}{{campaign.name}}{% endblock %}
+{% block smalltitle %}editing{% endblock %}
 {% block content %}
 <form action="/campaign/{{object_id}}/edit/" method="post">{% csrf_token %}
 {{ form.as_p }}
-<input type="submit" value="Submit" />
-</form>
 {% endblock %}
 {% block contenttwo %}
+<input type="submit" value="Save Changes" class="g-button blue"/><hr /><a href="/campaign/{{object_id}}/" class="g-button red"><i class="icon-remove icon-white"></i> Discard Changes</a>
+</form>
+{% endblock %}
+{% block highcharts %}
+<script>
+	$(function() {
+		$( ".date" ).datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,
+			changeYear: true, minDate: new Date(1970, 1 - 1, 1), shortYearCutoff: 50, yearRange: 'c-3:c+3' });
+	});
+</script>
 {% endblock %}
