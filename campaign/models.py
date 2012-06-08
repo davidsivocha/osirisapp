@@ -55,7 +55,7 @@ class Campaign(models.Model):
 		verbose_name = "Campaign"
 		verbose_name_plural = "Campaigns" 
 	def __unicode__(self):
-		return u'Campaign: %s' % (self.name)
+		return u': %s' % (self.name)
 
 class CampaignStats(models.Model):
 	campaign = models.ForeignKey(Campaign)

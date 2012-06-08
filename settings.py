@@ -5,7 +5,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('ADMIN NAME', 'AdminEmail'),
+    ('ADMIN NAME', 'ADMIN EMAIL'),
 )
 
 MANAGERS = ADMINS
@@ -127,7 +127,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/var/Osiris/templates/'
+    ''
 )
 
 ADMINTOOLS_BOOTSTRAP_SITE_LINK = '/'

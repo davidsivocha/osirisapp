@@ -1,14 +1,79 @@
 {% extends 'base.html' %}
 {% load osiris_extras %}
 {% load humanize %}
-{% block extrastyle %}{% endblock %}
-{% block extrascripts %}{% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/google-buttons.css" />
+{% endblock %}
+{% block extrascripts %}
+<script src="{{STATIC_URL}}js/highcharts.src.js" type="text/javascript"></script>
+{% endblock %}
 {% block title %}{{campaign.name}}{% endblock %}
 {% block pagetitle %}{{campaign.name}}{% endblock %}
 {% block smalltitle %}{% endblock %}
-{% block content %}{% endblock %}
+{% block content %}
+<div id="container"></div>
+<h1>Campaign Stats</h1>
+<h2>Investment: £{{campaign.cost}}</h2>
+<h2># of Leads: {{campaign.numleads}}</h2>
+<h2># of apps: {{appnum}}</h2>
+<h2>Cost per Application: £{{cpa|safe}}</h2>
+<h2>Volume:</h2>
+{% endblock %}
 {% block contenttwo %}
-{{campaign.name}}
-{{campaign.team.name}}
-{{campaign.notes}}
+<a href="/campaign/" class="g-button blue">&lt; Back</a>
+<a href="/campaign/{{campaign.id}}/edit/" class="g-button red">Edit</a>
+<hr />
+<img src="{{MEDIA_URL}}{{campaign.team.logo}}"  class="infologo"/>
+<h1>{{campaign.team.name}}</h1>
+{{campaign.startdate}} to {{campaign.enddate}}
+<h2>Campaign Notes</h2>
+{{campaign.notes|safe}}
+<h2>Campaign Status</h2>
+<a class="g-button red">{{status}}</a>
+<a href="/campaign/{{campaign.id}}/stats/" class="g-button green"><i class="icon-plus icon-white"></i>Add Stats</a>
+{% endblock %}
+{% block highcharts %}
+<script>
+var chart;
+$(document).ready(function() {
+	chart = new Highcharts.Chart({
+		chart: {
+			renderTo: 'container',
+			plotBackgroundColor: null,
+			plotBorderWidth: null,
+			plotShadow: false
+		},
+		title: {
+			text: 'Comparison of Apps to Leads'
+		},
+		tooltip: {
+			formatter: function() {
+				return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+			}
+		},
+		plotOptions: {
+			pie: {
+				allowPointSelect: true,
+				cursor: 'pointer',
+				dataLabels: {
+					enabled: true,
+					color: '#000000',
+					connectorColor: '#000000',
+					formatter: function() {
+						return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+					}
+				}
+			}
+		},
+		series: [{
+			type: 'pie',
+			name: 'Apps to Leads',
+			data: [
+				['Apps',   {{appnum}}],
+				['Leads',       {{campaign.numleads}}]
+			]
+		}]
+	});
+});
+</script>
 {% endblock %}

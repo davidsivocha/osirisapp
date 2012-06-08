@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^team/', include('team.urls')),
     url(r'^reports/', include('reports.urls')),
     url(r'^stats/', include('stats.urls')),
+    url(r'^campaign/', include('campaign.urls')),
 
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'core/login.html'}),
 

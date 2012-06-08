@@ -1,3 +1,49 @@
+{% extends 'base.html' %}
+{% load osiris_extras %}
+{% load humanize %}
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/google-buttons.css" />
+{% endblock %}
+{% block extrascripts %}{% endblock %}
+{% block title %}Campaigns{% endblock %}
+{% block pagetitle %}Web Campaigns{% endblock %}
+{% block smalltitle %}Stats and Reports{% endblock %}
+{% block content %}
+<h1>Running Campaigns</h1>
+<table cellspacing="0" class="list table table-bordered table-striped">
+	<tr>
+		<th>Campaign Name</th>
+		<th>Start Date</th>
+		<th>End Date</th>
+		<th>Team</th>
+	</tr>
 {% for object in runningcampaigns %}
-{{object.name}}
+	<tr>
+		<td><a href="/campaign/{{object.pk}}">{{object.name}}</a></td>
+		<td>{{object.startdate}}</td>
+		<td>{{object.enddate}}</td>
+		<td>{{object.team}}</td>
+	</tr>
 {% endfor %}
+</table>
+<h1>Finished Campaigns</h1>
+<table cellspacing="0" class="list table table-bordered table-striped">
+	<tr>
+		<th>Campaign Name</th>
+		<th>Start Date</th>
+		<th>End Date</th>
+		<th>Team</th>
+	</tr>
+{% for object in finishedcampaigns %}
+	<tr>
+		<td><a href="/campaign/{{object.pk}}">{{object.name}}</a></td>
+		<td>{{object.startdate}}</td>
+		<td>{{object.enddate}}</td>
+		<td>{{object.team}}</td>
+	</tr>
+{% endfor %}
+</table>
+{% endblock %}
+{% block contenttwo %}
+<a href="/campaign/add/" class="g-button red">New Campaign</a>
+{% endblock %}
