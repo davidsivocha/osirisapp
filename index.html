@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Osiris - Information Management System by davidsivocha</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Osiris - Information Management System</h1>
+        <p>Data Driven performance reporting</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/davidsivocha/osirisapp" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/davidsivocha/osirisapp/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/davidsivocha/osirisapp/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>Osiris App</h1>
+
+<p>The Osiris Application is a sales management information system, designed to hold data about Sales Agents and produce performance reports based on the provided data. </p>
+
+<p>The system takes in daily generated data and produces a suite of management reports.</p>
+
+<h2>Languages and Technologies Used</h2>
+
+<ul>
+<li><a href="http://www.python.org/">Python</a></li>
+<li><a href="https://www.djangoproject.com/">The Django Framework</a></li>
+<li>HTML5</li>
+<li>Javascript</li>
+<li><a href="http://www.postgresql.org/">PostgreSQL</a></li>
+<li><a href="http://www.zurb.com/playground/orbit-jquery-image-slider">Orbit Slider from Zurb</a></li>
+<li><a href="http://www.highcharts.com/">Highcharts</a></li>
+<li><a href="http://jquery.com/">JQuery</a></li>
+<li><a href="http://tablesorter.com/docs/">Tablesorter</a></li>
+<li><a href="http://digitalbush.com/projects/masked-input-plugin/">MaskedInput</a></li>
+<li><a href="https://bitbucket.org/izi/django-admin-tools/wiki/Home">Django-Admin-Tools</a></li>
+<li><a href="https://bitbucket.org/salvator/django-admintools-bootstrap">Django-Admin-Tools-Bootstrap</a></li>
+</ul><h2>About the Project</h2>
+
+<p>Developed for UK Fuels as a replacement to a spreadsheet driven system that took daily stats input and produced a series of reports, however over time their previous system had become broken and unusable.</p>
+
+<p>This new system is built around the Django framework from Python to fall in line with internal company standards, and to make it easier for their in house team to support.</p>
+
+<p>The system allows for tracking for multiple different teams and agents, and to generate aggregate stats based on performance, as well as use those performance figures to create an in house competition to help drive sales performance.</p>
+
+<p>The system also allows Sales Agents to view their own performance on an intimate level and see in a visually represented for, how well they are doing.</p>
+
+<h2>Modules</h2>
+
+<p>This section details the module components in Osiris</p>
+
+<hr><h3>The Academy</h3>
+
+<p>The academy is a competition system built in, that uses the existing stats to rank the agents by performance and is used to generate monthly and quarterly awards.</p>
+
+<h3>Agents</h3>
+
+<p>The agents module contains all the details about the sales agents, including sales agent training information.</p>
+
+<h3>Campaigns</h3>
+
+<p>The Campaigns module manages web sales campaigns to track cost and ROI</p>
+
+<h3>Core</h3>
+
+<p>The core details the basic function pages, such as index, about, and the login/logout functions</p>
+
+<h3>Extras</h3>
+
+<p>The extra's module contains some functions that are used in multiple places for consistency. They are little snippets</p>
+
+<h3>Planner</h3>
+
+<p>The planner is a job recorded for the admin team, for all admin requests.</p>
+
+<h3>Reports</h3>
+
+<p>The reports module feeds data from the stats module, analyses it and generates reports based on the given data.</p>
+
+<h3>Teams</h3>
+
+<p>The Teams module is the manager for the teams and the targets that apply to all the agents in that team</p>
+
+<h3>Stats</h3>
+
+<p>The stats module records the daily stats produced by the agents as well as weekly and monthly stats. All of this data, feeds into the reports and academy modules.</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/davidsivocha">davidsivocha</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
