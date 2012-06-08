@@ -24,6 +24,11 @@ The system allows for tracking for multiple different teams and agents, and to g
 
 The system also allows Sales Agents to view their own performance on an intimate level and see in a visually represented for, how well they are doing.
 
+Stats so far:
+-5300  lines of Python
+-5459 lines of HTML
+-Not including CSS or JS as this project uses a number of 3rd party scripts
+
 ## Modules ##
 This section details the module components in Osiris
 
