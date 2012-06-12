@@ -1,4 +1,8 @@
 # Create your views here.
+"""
+Extra handlers and generic functions mostly used to switch the way months and dates are displayed and worked out.
+Also contains a NON template tag version of the humantime template filter.
+"""
 def month_display(month):
 	months={
 		"jan": "January",

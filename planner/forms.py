@@ -3,6 +3,10 @@ from django.forms import ModelChoiceField
 from django.contrib.auth.models import User
 from planner.models import Ticket
 
+
+"""
+Forms used for the admin planner
+"""
 class UserModelChoiceField(ModelChoiceField):
     def label_from_instance(self, obj):
         # Return a string of the format: "firstname lastname (username)"

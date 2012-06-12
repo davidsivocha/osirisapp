@@ -7,6 +7,9 @@ from planner.forms import TicketForm, NewTicketForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
+"""
+edits the planner item in it's own display, showing full information
+"""
 @login_required
 def object_detail_edit(request, object_id): #done
     if request.user.has_perm('agents.super'):
@@ -34,7 +37,10 @@ def object_detail_edit(request, object_id): #done
         response = render_to_response(template, context)
         
         return response
- 
+
+"""
+View used to add a new admin planner item
+"""
 @login_required
 def object_detail_add(request): #done
     if request.user.has_perm('agents.super'):
@@ -62,6 +68,9 @@ def object_detail_add(request): #done
         
         return response
 
+"""
+List display of admin planner items
+"""
 @login_required 
 def get_planner_list(request): #done
     if request.user.has_perm('agents.super'):
@@ -82,6 +91,9 @@ def get_planner_list(request): #done
         
         return response
 
+"""
+Shows the full details of a planner item.
+"""
 @login_required        
 def ticket_detail(request, object_id): #done
     if request.user.has_perm('agents.super'):

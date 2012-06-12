@@ -123,6 +123,8 @@ def academy_year(year):
 	"""
 	year = int(year)
 
+	display = year
+
 	ctlist = []
 	qalist = []
 	volumelist = []
@@ -141,23 +143,58 @@ def academy_year(year):
 		targets = Targets.objects.get(name=team.targets)
 		agentstats = dstats.filter(agent=agent).aggregate(Sum('calltime'), Sum('prodhours'))
 		avgcalltime = int(agentstats['calltime__sum'] / (agentstats['prodhours__sum']/targets.hours))
-		volume = wstats.filter(agent=agent).aggregate(Sum('volume'))
+		volume = wstats.filter(agent=agent).aggregate(Sum('volume'), Avg('drawcust'))
 		qualified = qapps.filter(agent=agent).aggregate(Sum('qualifiedapps'))
-		ctlist.append([agent.name, team.name, ])
-		drawlist.append([agent.name, avgcalltime])
-		volumelist.append([agent.name, volume['volume__sum']])
+		ctlist.append([agent.name, avgcalltime])
+		drawlist.append([agent.name, volume['drawcust__avg']])
+		#volumelist.append([agent.name, volume['volume__sum']])
 		qalist.append([agent.name, qualified['qualifiedapps__sum']])
 
 	ctlist.sort(key=sort_inner, reverse=True)
 	qalist.sort(key=sort_inner, reverse=True)
-	volumelist.sort(key=sort_inner, reverse=True)
+	drawlist.sort(key=sort_inner, reverse=True)
+	#volumelist.sort(key=sort_inner, reverse=True)
 
 	score = 0
 	previous = 0
+	for each in ctlist:
+		winners[each[0]]=score
+		score +=1
+	score = 0
+	for each in qalist:
+		winners[each[0]]+=score
+		score +=1
+	score = 0
+	for each in drawlist:
+		winners[each[0]]+=score
+		score +=1
+
+	for each in agents:
+		team = Teams.objects.get(name=each.teamid)
+		targets = Targets.objects.get(name=team.targets)
+		agentstats = dstats.filter(agent=each).aggregate(Sum('calltime'), Sum('prodhours'))
+		avgct = int(agentstats['calltime__sum'] / (agentstats['prodhours__sum']/targets.hours))
+		volume = wstats.filter(agent=each).aggregate(Sum('volume'), Avg('drawcust'))
+		apps = QualifiedApps.objects.filter(year=year).filter(agent=each).aggregate(Sum('qualifiedapps'),)
+		qa = apps['qualifiedapps__sum']
+		vol = 0
+		growth = 0
+		draw = volume['drawcust__avg']
+		#for app in apps:
+		#	qa = app.qualifiedapps
+		#for vol in volume:
+		#	draw = vol.drawcust
+		#	growth = vol.growth
+		academy.append([each.name, winners[each.name], team.name, avgct, growth, qa, draw, each.picture])
+	
+	return academy
 
 
 @login_required
 def academy_current_winners(request):
+	"""
+	This function gets the current date - 2 weeks and then bases the academy off the month given by that date. And then places it in the presentation
+	"""
 	thedate = datetime.today()-timedelta(days=14)
 	month = thedate.strftime("%b").lower()
 	year = thedate.strftime("%Y").lower()
@@ -175,11 +212,14 @@ def academy_current_winners(request):
 
 @login_required
 def academy_year_winners(request, year):
+	"""
+	Used to request a year's academy presentation
+	"""
 	academy = academy_year(year)
-	academy.sort(key=sort_inner, reverse=True)
+	academy.sort(key=sort_inner, reverse=False)
 
-	template = 'academy/presentation.html'
-	context = RequestContext(request, {'year':year, 'academy':academy})
+	template = 'osiris/academy/academy_table.html'
+	context = RequestContext(request, {'month':year, 'academy':academy})
     
 	response = render_to_response(template, context)
     
@@ -187,6 +227,9 @@ def academy_year_winners(request, year):
     
 @login_required
 def academy_month_winners(request, year, month):
+	"""
+	Used to request a month's academy presentation
+	"""
 	display = month_display(month)
 
 	academy = academy_month(month, year)
@@ -201,6 +244,9 @@ def academy_month_winners(request, year, month):
     
 @login_required
 def academy_current_leaderboard(request):
+	"""
+	This function gets the current date - 2 weeks and then bases the academy off the month given by that date. and then creates a leaderboard
+	"""
 	thedate = datetime.today()-timedelta(days=14)
 	month = thedate.strftime("%b").lower()
 	year = thedate.strftime("%Y").lower()
@@ -218,6 +264,9 @@ def academy_current_leaderboard(request):
     
 @login_required
 def academy_year_leaderboard(request, year):
+	"""
+	Used to request a year's academy leaderboard
+	"""
 	academy = academy_year(year)
 	academy.sort(key=sort_inner)
 
@@ -230,6 +279,9 @@ def academy_year_leaderboard(request, year):
     
 @login_required
 def academy_month_leaderboard(request, year, month):
+	"""
+	Used to request a month's academy leaderboard
+	"""
 	display = month_display(month)
 
 	academy = academy_month(month, year)
@@ -245,6 +297,9 @@ def academy_month_leaderboard(request, year, month):
 
 @login_required	
 def academy_calendar_select(request):
+	"""
+	Generates a page to allow users to change their academy view.
+	"""
 	template = 'academy/calendar.html'
 	context = RequestContext(request, {})
     
@@ -361,6 +416,8 @@ def academy_quarter_winners(request, year, quarter):
 	response = render_to_response(template, context)
 
 	return response
+
+
 @login_required
 def academyboardtemp(request):
 	ctlist = []
@@ -370,7 +427,7 @@ def academyboardtemp(request):
 	growthlist = []
 	academy = []
 	winners = {}
-	month = "may"
+	month = "jun"
 	months = {'jan': 'January',
 		'feb':'February',
 		'mar':'March',
@@ -433,17 +490,17 @@ def academyboardtemp(request):
 		winners[each[0]]=score
 		score +=1
 	score = 0
-	for each in qalist:
-		winners[each[0]]+=score
-		score +=1
-	score = 0
-	for each in volumelist:
-		winners[each[0]]+=score
-		score +=1
-	score = 0
-	for each in drawlist:
-		winners[each[0]]+=score
-		score +=1
+	#for each in qalist:
+	#	winners[each[0]]+=score
+	#	score +=1
+	#score = 0
+	#for each in volumelist:
+	#	winners[each[0]]+=score
+	#	score +=1
+	#score = 0
+	#for each in drawlist:
+	#	winners[each[0]]+=score
+	#	score +=1
 	for each in agents:
 		team = Teams.objects.get(name=each.teamid)
 		targets = Targets.objects.get(name=team.targets)
@@ -482,7 +539,7 @@ def academyleaderboardtemp(request):
 	growthlist = []
 	academy = []
 	winners = {}
-	month = "may"
+	month = "jun"
 	months = {'jan': 'January',
 		'feb':'February',
 		'mar':'March',
@@ -544,17 +601,17 @@ def academyleaderboardtemp(request):
 		winners[each[0]]=score
 		score +=1
 	score = 0
-	for each in qalist:
-		winners[each[0]]+=score
-		score +=1
-	score = 0
-	for each in volumelist:
-		winners[each[0]]+=score
-		score +=1
-	score = 0
-	for each in drawlist:
-		winners[each[0]]+=score
-		score +=1
+	#for each in qalist:
+	#	winners[each[0]]+=score
+	#	score +=1
+	#score = 0
+	#for each in volumelist:
+	#	winners[each[0]]+=score
+	#	score +=1
+	#score = 0
+	#for each in drawlist:
+	#	winners[each[0]]+=score
+	#	score +=1
 	for each in agents:
 		team = Teams.objects.get(name=each.teamid)
 		targets = Targets.objects.get(name=team.targets)

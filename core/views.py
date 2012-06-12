@@ -14,6 +14,9 @@ from team.models import Teams, Targets
 from extras.views import month_display, month_number, month_list, number_month
 from agents.models import Agent
 
+"""
+Error controller definitions
+"""
 def server_error(request):
     template_name = 'core/500.html'
     return render_to_response(template_name,
@@ -25,7 +28,9 @@ def permission_error(request):
         context_instance = RequestContext(request)
     )
 
-
+"""
+Logout controller.
+"""
 def logout_view(request): #done
     logout(request)
     template = 'core/logout.html'
@@ -35,6 +40,9 @@ def logout_view(request): #done
     
     return response
 
+"""
+Redirects to an agent page when you try to view a username
+"""
 @login_required
 def user_view(request, username): #done
     user = get_object_or_404(User, username=username)
@@ -43,6 +51,9 @@ def user_view(request, username): #done
     url = "/agent/" + slug
     return HttpResponseRedirect(url)
 
+"""
+Logic controllers for sauls graph dashboard. 
+"""
 @login_required
 def saul_dashboard(request): 
     if not request.user.has_perm('agents.saul'):

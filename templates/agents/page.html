@@ -51,6 +51,20 @@
 				<p>FTE Applications: {{monthfte.totalapps|floatformat:2}}</p>
 			</div>
 		</div>
+		<div class="row">
+			<div class="span4">
+			<h3>Quarter to Date Totals: 2</h3>
+				<p>Total Call Time: {{quartertotals.calltime__sum|humantime}}</p>
+				<p>Total Call Attempts: {{quartertotals.callattempts__sum}}</p>
+				<p>Total Applications: {{quartertotals.totalapps__sum}}</p>
+			</div>
+			<div class="span5">
+				<h3>Quarter to Date Averages: 2</h3>
+				<p>Avg Call Time: {{quarterfte.calltime|humantime}}</p>
+				<p>Avg Call Attempts: {{quarterfte.callattempts}}</p>
+				<p>FTE Applications: {{quarterfte.totalapps|floatformat:2}}</p>
+			</div>
+		</div>
 	</div>
 	<div class="tab-pane" id="training">
 		<table class="table table-condensed table-bordered table-striped">

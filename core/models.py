@@ -3,6 +3,9 @@ from datetime import datetime, timedelta, time
 from django.contrib import admin
 from team.models import Teams
 
+"""
+This is a base model used for information pages across the site.
+"""
 # Create your models here.
 class FrontPage(models.Model):
     title = models.CharField('Title', max_length=50)
@@ -16,6 +19,9 @@ class FrontPage(models.Model):
         verbose_name = "Info page"
         verbose_name_plural = "Info pages"
 
+"""
+This model is used to allow generic file uploads not specifically linked to anything.
+"""
 class Uploads(models.Model):
     title = models.CharField('Title', max_length=50)
     description = models.CharField('Description', max_length=50)

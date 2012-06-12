@@ -7,6 +7,9 @@ from datetime import datetime, timedelta, time
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
+"""
+The agent model acts as a user profile for the users.
+"""
 class Agent(models.Model):
     AGENT_CHOICES = (
         ('0', 'Agent'),
@@ -68,6 +71,9 @@ class Training(models.Model):
     def __unicode__(self):
         return u'%s Training' % (self.agent)
 
+"""
+The incentive model is used to note achievements that the agent has gathered
+"""
 class Incentive(models.Model):
     INCENTIVE_TYPE_CHOICES = (
         ('A', 'Acheivement'),
@@ -84,6 +90,9 @@ class Incentive(models.Model):
     def __unicode__(self):
         return u'%s incentive' % (self.agent)
 
+"""
+The coaching and compliance model marks down coaching scores.
+"""
 class CoachingAndCompliance(models.Model):
     CANDC_TYPE_CHOICES = (
         ('1', 'Coaching'),
@@ -101,6 +110,9 @@ class CoachingAndCompliance(models.Model):
     def __unicode__(self):
         return u'%s Coaching and Compliance Record' % (self.agent)
 
+"""
+Below are the various admin objects that are used to manage to models.
+"""
 class UserProfileInline(admin.StackedInline):
     model = Agent
     max_num = 1
@@ -177,7 +189,10 @@ class CandCAdmin(admin.ModelAdmin):
     list_display = ('agent', 'type', 'date', 'score')
     search_fields = ['agent__name']
 
-
+"""
+The User model admin throws a weird error when you unregister it and try to reregister with a custom one.
+TODO: Figure out what the hell the user admin is doing.
+"""
 #admin.site.unregister(User)
 #admin.site.register(User, AuthUserAdmin)
 admin.site.register(Agent, AgentAdmin)

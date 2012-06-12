@@ -10,6 +10,9 @@ from campaign.models import Campaign, CampaignStats
 from campaign.forms import CampaignForm
 from datetime import datetime, timedelta, time
 
+"""
+The campaign list generates a list of currently running and finished campaigns
+"""
 @login_required
 def campaign_list(request): #done
 	if request.user.has_perm('agents.super'):
@@ -32,6 +35,9 @@ def campaign_list(request): #done
 
 		return response
 
+"""
+This generates a form to add a new campaign and save it.
+"""
 @login_required
 def campaign_add(request): #done
 	if request.user.has_perm('agents.super'):
@@ -58,6 +64,9 @@ def campaign_add(request): #done
 
 		return response
 
+"""
+This page generates a view for the campaign. Showing off the campaign stats
+"""
 @login_required
 def campaign_view(request, object_id): #done
 	if request.user.has_perm('agents.super'):
@@ -94,6 +103,9 @@ def campaign_view(request, object_id): #done
 
 		return response
 
+"""
+This is used to edit any campaign and save the changes that you have made
+"""
 @login_required
 def campaign_edit(request, object_id): #done
 	if request.user.has_perm('agents.super'):
@@ -121,6 +133,10 @@ def campaign_edit(request, object_id): #done
 
 		return response
 
+"""
+This is used to manage and add campaign stats
+TODO: add the campaign stats forms and form logic.
+"""
 @login_required
 def campaign_stats(request, object_id): #done
 	if request.user.has_perm('agents.super'):
@@ -139,6 +155,10 @@ def campaign_stats(request, object_id): #done
 
 		return response
 
+"""
+This is used to manage and add campaign stats
+TODO: add the campaign stats forms and form logic.
+"""
 @login_required
 def campaign_weekly_stats(request): #done
 	if request.user.has_perm('agents.super'):

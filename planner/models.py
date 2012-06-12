@@ -6,7 +6,6 @@ from django.utils.html import strip_tags
 from django.forms import ModelChoiceField
 from django.forms import ModelForm
 
-
 TICKET_STATUS_CHOICES = (
     ('new', 'New'),
     ('accepted', 'Accepted'),

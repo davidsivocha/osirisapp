@@ -4,6 +4,9 @@ from datetime import datetime, timedelta, time
 
 register = template.Library()
 
+"""
+Converts minutes(integer) into a human readable time i.e. 127 minutes becomes 2:07
+"""
 @register.filter
 def humantime(value):
     if value is None:
@@ -25,11 +28,17 @@ def lookup(dict, index):
         return dict[index]
     return ''
 
+"""
+Short tag used to print the site url
+"""
 @register.simple_tag()    
 def print_site_url():
     string = "http://osirisapp.com/"
     return string
 
+"""
+Simple tag used to show the current time and date on certain pages.
+"""
 @register.tag(name='current_time')    
 def do_current_time(parser, token):
     try:

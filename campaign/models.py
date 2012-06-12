@@ -2,29 +2,9 @@ from django.db import models
 from team.models import Teams
 from django.contrib import admin
 
-# campaign week stats model
-# fields:
-# week
-# volume
-
-# admin models
-# campaign admin
-# campaign stats admin
-# campaign weekly stats admin
-
-
-# functions
-# price / #ofapps = cost per applications
-# #ofapps / #ofleads = percentage return (what percentage of leads signed up.)
-# if enddate < today then assert(campaign over) else assert(campaign running)
-
-# forms
-# new campaign form
-# dailystats form
-# weeklystats form
-
-# analytics integration
-
+"""
+The campaign model for the stat tracking. 
+"""
 class Campaign(models.Model):
 	name = models.CharField(max_length=50)
 	team = models.ForeignKey(Teams)
@@ -40,6 +20,9 @@ class Campaign(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.name)
 
+"""
+The campaign stats model is used to record the stats for each campaign
+"""
 class CampaignStats(models.Model):
 	campaign = models.ForeignKey(Campaign)
 	date = models.DateField('Stat Date')
@@ -51,6 +34,9 @@ class CampaignStats(models.Model):
 	def __unicode__(self):
 		return u'%s Stat: %s' % (self.campaign, self.date)
 
+"""
+Admin controllers for the above models
+"""
 class CampaignAdmin(admin.ModelAdmin):
 	list_display = ('name', 'cost', 'numleads', 'startdate', 'enddate')
 	list_filter = ['team', ]

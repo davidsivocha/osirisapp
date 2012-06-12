@@ -28,6 +28,10 @@ urlpatterns = patterns('',
     url(r'^about/$', direct_to_template, {
         'template': 'general/about.html'
     }),
+
+    url(r'^maps/$', direct_to_template, {
+        'template': 'core/maps.html'
+    }),
 )
 
 

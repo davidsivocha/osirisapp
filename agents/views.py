@@ -16,6 +16,10 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
 
+"""
+Generates the agent select page, checks to see if the user is a supervisor or better. If the user is an agent it redirects them back to 
+their own agent page.
+"""
 @login_required
 def agent_select(request): #done
     user = request.user.get_profile()
@@ -34,6 +38,9 @@ def agent_select(request): #done
         
         return response
 
+"""
+This generates an agents page. It first checks to see if you can view the page, either by being a supervisor or by being the right agent
+"""
 @login_required
 def agent_page(request, agent): #done
     user = request.user.get_profile()
@@ -67,6 +74,10 @@ def agent_page(request, agent): #done
     totals = globalstats.filter(isoyear=isoyear).aggregate(Sum('callattempts'), Sum('calltime'), Sum('prodhours'), Sum('sickhours'), Sum('totalapps'))
     monthtotals = globalstats.filter(isoyear=isoyear).filter(month=month).aggregate(Sum('callattempts'), Sum('calltime'), Sum('prodhours'), Sum('sickhours'), Sum('totalapps'))
     
+    """
+    This section works out a series of FTE requirements
+    """
+
     fte = {}
     fte["calltime"] = 0
     if totals['calltime__sum'] > 0:
@@ -105,6 +116,29 @@ def agent_page(request, agent): #done
     if monthfte["totalapps"] > 0:
         monthfte["totalapps"] = monthfte["totalapps"]
 
+    quartertotals = globalstats.filter(isoyear=isoyear).exclude(month='jan').exclude(month='feb').exclude(month='mar').exclude(month='jul').exclude(month='aug').exclude(month='sep').exclude(month='oct').exclude(month='nov').exclude(month='dec').aggregate(Sum('callattempts'), Sum('calltime'), Sum('prodhours'), Sum('sickhours'), Sum('totalapps'))
+    quarterfte = {}
+    quarterfte["calltime"] = 0
+    if quartertotals['calltime__sum'] > 0:
+        quarterfte["calltime"] = quartertotals['calltime__sum'] / (quartertotals['prodhours__sum'] / targets.hours)
+    if quarterfte["calltime"] > 0:
+        quarterfte["calltime"] = int(quarterfte["calltime"])
+
+    quarterfte["callattempts"] = 0
+    if quartertotals['callattempts__sum'] > 0:
+        quarterfte["callattempts"] = quartertotals['callattempts__sum'] / (quartertotals['prodhours__sum'] / targets.hours)
+    if quarterfte["callattempts"] > 0:
+        quarterfte["callattempts"] = int(quarterfte["callattempts"])
+
+    quarterfte["totalapps"] = 0
+    if quartertotals['totalapps__sum'] > 0:
+        quarterfte["totalapps"] = quartertotals['totalapps__sum'] / ((quartertotals['prodhours__sum'] + quartertotals['sickhours__sum']) / targets.hours)
+    if quarterfte["totalapps"] > 0:
+        quarterfte["totalapps"] = quarterfte["totalapps"]
+
+    """
+    This section gets the stats for the charts on the page, organising by week from the start of the year.
+    """
     chartstats = Dstats.objects.filter(agent=agent)
     chartweeks = []
     calltime = []
@@ -138,6 +172,9 @@ def agent_page(request, agent): #done
                 statsum = []
             startweek = startweek + 1
 
+    """
+    Same as the above except for the volume and qualified apps charts
+    """
     months = OrderedDict()
     months['jan'] = 'January'
     months['feb'] = 'February'
@@ -174,12 +211,15 @@ def agent_page(request, agent): #done
         qappsum = 0
 
     template = 'agents/page.html'
-    context = RequestContext(request, {'candc':candc, 'vol':volweeks, 'qapps':qappweeks, 'apps':apps,'callattempts':callattempts,'calltime':calltime,'weeks':chartweeks, 'agent':agent, 'sick':ill, 'hol':hol, 'training':training,'acheive':acheive, 'totals':totals, 'fte':fte, 'monthtotals':monthtotals, 'monthfte':monthfte, 'month':month_display(month)})
+    context = RequestContext(request, {'quartertotals':quartertotals, 'quarterfte':quarterfte,'candc':candc, 'vol':volweeks, 'qapps':qappweeks, 'apps':apps,'callattempts':callattempts,'calltime':calltime,'weeks':chartweeks, 'agent':agent, 'sick':ill, 'hol':hol, 'training':training,'acheive':acheive, 'totals':totals, 'fte':fte, 'monthtotals':monthtotals, 'monthfte':monthfte, 'month':month_display(month)})
     
     response = render_to_response(template, context)
     
     return response
 
+"""
+Creates a PDF document review of the agents performance for end of year reviews
+"""
 @login_required
 def agent_year_review(request, agent, year): #done
     user = request.user.get_profile()
@@ -368,6 +408,9 @@ def agent_year_review(request, agent, year): #done
 
     return response
 
+"""
+Same as the above except for monthly reviews instead.
+"""
 @login_required  
 def agent_month_review(request, agent, year, month): #done
     user = request.user.get_profile()
@@ -398,6 +441,8 @@ def agent_month_review(request, agent, year, month): #done
     qappsum = QualifiedApps.objects.filter(agent=agent).filter(month=month).filter(year=year).aggregate(Sum('qualifiedapps'),)
     qappsum = qappsum['qualifiedapps__sum']
     qapptarget = (target.commission3 / target.days) * agent.parttimedays
+
+    volsum = WeeklyStats.objects.filter(agent=agent).filter(isomonth=month).filter(isoyear=year).aggregate(Sum('volume'), Avg('drawcust'))
 
     targetct = humantime(target.calltime)
     targetapps = int(((monthtotals['prodhours__sum'] + monthtotals['sickhours__sum']) / target.hours) * Decimal(target.applications))
@@ -494,9 +539,12 @@ def agent_month_review(request, agent, year, month): #done
         p.drawString(305, 630, "No")
 
     p.drawString(55, 610, "Monthly Volume")
+    p.drawString(155, 610, "")
+    p.drawString(205, 610, str(volsum['volume__sum']))
 
     p.drawString(55, 590, "Buying Customers")
     p.drawString(155, 590, str(targetbuying))
+    p.drawString(205, 590, str(volsum['drawcust__avg']))
 
     p.setFont("Helvetica", 8)
     p.drawString(50, 545, "Please rate your performance:")
