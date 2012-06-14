@@ -485,22 +485,42 @@ def academyboardtemp(request):
 	volumelist.sort(key=sort_inners, reverse=True)
 	drawlist.sort(key=sort_inners, reverse=True)
 	score = 0
+	previous = -1
 	for each in ctlist:
-		
-		winners[each[0]]=score
-		score +=1
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
 	score = 0
-	#for each in qalist:
-	#	winners[each[0]]+=score
-	#	score +=1
-	#score = 0
-	#for each in volumelist:
-	#	winners[each[0]]+=score
-	#	score +=1
-	#score = 0
-	#for each in drawlist:
-	#	winners[each[0]]+=score
-	#	score +=1
+	previous = -1
+	for each in qalist:
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
+	score = 0
+	previous = -1
+	for each in volumelist:
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
+	score = 0
+	previous = -1
+	for each in drawlist:
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
+		
 	for each in agents:
 		team = Teams.objects.get(name=each.teamid)
 		targets = Targets.objects.get(name=team.targets)
@@ -597,21 +617,41 @@ def academyleaderboardtemp(request):
 	volumelist.sort(key=sort_inners, reverse=True)
 	drawlist.sort(key=sort_inners, reverse=True)
 	score = 0
+	previous = -1
 	for each in ctlist:
-		winners[each[0]]=score
-		score +=1
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
 	score = 0
-	#for each in qalist:
-	#	winners[each[0]]+=score
-	#	score +=1
-	#score = 0
-	#for each in volumelist:
-	#	winners[each[0]]+=score
-	#	score +=1
-	#score = 0
-	#for each in drawlist:
-	#	winners[each[0]]+=score
-	#	score +=1
+	previous = -1
+	for each in qalist:
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
+	score = 0
+	previous = -1
+	for each in volumelist:
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
+	score = 0
+	previous = -1
+	for each in drawlist:
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
 	for each in agents:
 		team = Teams.objects.get(name=each.teamid)
 		targets = Targets.objects.get(name=team.targets)
@@ -703,21 +743,41 @@ def academyleaderboardtempmonth(request, month):
 	volumelist.sort(key=sort_inners, reverse=True)
 	drawlist.sort(key=sort_inners, reverse=True)
 	score = 0
+	previous = -1
 	for each in ctlist:
-		winners[each[0]]=score
-		score +=1
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
 	score = 0
+	previous = -1
 	for each in qalist:
-		winners[each[0]]+=score
-		score +=1
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
 	score = 0
+	previous = -1
 	for each in volumelist:
-		winners[each[0]]+=score
-		score +=1
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
 	score = 0
+	previous = -1
 	for each in drawlist:
-		winners[each[0]]+=score
-		score +=1
+		if each[1] == previous:
+			score = score
+		else:
+			score += 1
+			previous = each[1]
+		winners[each[0]] += score
 
 	for each in agents:
 		team = Teams.objects.get(name=each.teamid)

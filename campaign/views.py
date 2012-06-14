@@ -17,6 +17,7 @@ The campaign list generates a list of currently running and finished campaigns
 def campaign_list(request): #done
 	if request.user.has_perm('agents.super'):
 		thedate = datetime.today().date()
+		#gets two lists of objects. one of the running campaigns and one of the finished campaigns, determined by the current date
 		runningcampaigns = Campaign.objects.exclude(enddate__lte=thedate).order_by('startdate')
 		finishedcampaigns = Campaign.objects.exclude(enddate__gt=thedate).order_by('startdate')
 		
@@ -44,7 +45,7 @@ def campaign_add(request): #done
 		if request.method == 'POST':
 			form = CampaignForm(request.POST)
 			if form.is_valid():
-				form.save()
+				form.save() #saves the returned campaign add form
 				return HttpResponseRedirect('/campaign/')
 		else:
 			form = CampaignForm()
@@ -74,6 +75,8 @@ def campaign_view(request, object_id): #done
 		thedate = datetime.today().date()
 		campaignstats = CampaignStats.objects.filter(campaign=campaign)
 		records = campaignstats.count()
+
+		# next section checks to see if there are any daily stats records and creates some stats based on the records found if any.
 
 		if records == 0:
 			cpa = "&infin;"
@@ -109,14 +112,14 @@ This is used to edit any campaign and save the changes that you have made
 @login_required
 def campaign_edit(request, object_id): #done
 	if request.user.has_perm('agents.super'):
-		campaign = Campaign.objects.get(pk=object_id)
-		if request.method == 'POST':
-			form = CampaignForm(request.POST, instance=campaign)
+		campaign = Campaign.objects.get(pk=object_id) # gets the campaign idea that you want to edit
+		if request.method == 'POST': 
+			form = CampaignForm(request.POST, instance=campaign)  # if the request method is post, gets the form data from the campaign and updates it with the new data
 			if form.is_valid():
-				form.save()
-				return HttpResponseRedirect('/campaign/'+object_id)
+				form.save() # saves the form
+				return HttpResponseRedirect('/campaign/'+object_id) # redirects back to the object that was juse edited
 		else:
-			form = CampaignForm(instance=campaign)
+			form = CampaignForm(instance=campaign) # passes the campaign into the form maker
 
 			template = 'campaign/edit.html'
 			context = RequestContext(request, {'form':form, 'object_id':object_id, 'campaign':campaign})
