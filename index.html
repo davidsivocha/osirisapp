@@ -1,51 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Osiris - Information Management System by davidsivocha</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Osiris - Information Management System : Data Driven performance reporting" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Osiris - Information Management System</title>
   </head>
+
   <body>
 
-      <header>
-        <h1>Osiris - Information Management System</h1>
-        <p>Data Driven performance reporting</p>
-      </header>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/davidsivocha/osirisapp">View on GitHub</a>
 
-      <div id="banner">
-        <span id="logo"></span>
+          <h1 id="project_title">Osiris - Information Management System</h1>
+          <h2 id="project_tagline">Data Driven performance reporting</h2>
 
-        <a href="https://github.com/davidsivocha/osirisapp" class="button fork"><strong>View On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/davidsivocha/osirisapp/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/davidsivocha/osirisapp/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-      </div><!-- end banner -->
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/davidsivocha/osirisapp/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/davidsivocha/osirisapp/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
-    <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
-      <section>
-        <h1>Osiris App</h1>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="osiris-app" class="anchor" href="#osiris-app"><span class="octicon octicon-link"></span></a>Osiris App</h1>
 
 <p>The Osiris Application is a sales management information system, designed to hold data about Sales Agents and produce performance reports based on the provided data. </p>
 
 <p>The system takes in daily generated data and produces a suite of management reports.</p>
 
-<h2>Languages and Technologies Used</h2>
+<h2>
+<a name="languages-and-technologies-used" class="anchor" href="#languages-and-technologies-used"><span class="octicon octicon-link"></span></a>Languages and Technologies Used</h2>
 
 <ul>
 <li><a href="http://www.python.org/">Python</a></li>
@@ -60,7 +54,8 @@
 <li><a href="http://digitalbush.com/projects/masked-input-plugin/">MaskedInput</a></li>
 <li><a href="https://bitbucket.org/izi/django-admin-tools/wiki/Home">Django-Admin-Tools</a></li>
 <li><a href="https://bitbucket.org/salvator/django-admintools-bootstrap">Django-Admin-Tools-Bootstrap</a></li>
-</ul><h2>About the Project</h2>
+</ul><h2>
+<a name="about-the-project" class="anchor" href="#about-the-project"><span class="octicon octicon-link"></span></a>About the Project</h2>
 
 <p>Developed for UK Fuels as a replacement to a spreadsheet driven system that took daily stats input and produced a series of reports, however over time their previous system had become broken and unusable.</p>
 
@@ -70,52 +65,79 @@
 
 <p>The system also allows Sales Agents to view their own performance on an intimate level and see in a visually represented for, how well they are doing.</p>
 
-<h2>Modules</h2>
+<p>If you are interested in more of my work, head over to my made repository list available on GitHub at <a href="http://davidsivocha.github.io">my github profile</a> or at my my personal site <a href="http://sivocha.com">Sivocha</a>.</p>
+
+<h2>
+<a name="modules" class="anchor" href="#modules"><span class="octicon octicon-link"></span></a>Modules</h2>
 
 <p>This section details the module components in Osiris</p>
 
-<hr><h3>The Academy</h3>
+<hr><h3>
+<a name="the-academy" class="anchor" href="#the-academy"><span class="octicon octicon-link"></span></a>The Academy</h3>
 
 <p>The academy is a competition system built in, that uses the existing stats to rank the agents by performance and is used to generate monthly and quarterly awards.</p>
 
-<h3>Agents</h3>
+<h3>
+<a name="agents" class="anchor" href="#agents"><span class="octicon octicon-link"></span></a>Agents</h3>
 
 <p>The agents module contains all the details about the sales agents, including sales agent training information.</p>
 
-<h3>Campaigns</h3>
+<h3>
+<a name="campaigns" class="anchor" href="#campaigns"><span class="octicon octicon-link"></span></a>Campaigns</h3>
 
 <p>The Campaigns module manages web sales campaigns to track cost and ROI</p>
 
-<h3>Core</h3>
+<h3>
+<a name="core" class="anchor" href="#core"><span class="octicon octicon-link"></span></a>Core</h3>
 
 <p>The core details the basic function pages, such as index, about, and the login/logout functions</p>
 
-<h3>Extras</h3>
+<h3>
+<a name="extras" class="anchor" href="#extras"><span class="octicon octicon-link"></span></a>Extras</h3>
 
 <p>The extra's module contains some functions that are used in multiple places for consistency. They are little snippets</p>
 
-<h3>Planner</h3>
+<h3>
+<a name="planner" class="anchor" href="#planner"><span class="octicon octicon-link"></span></a>Planner</h3>
 
 <p>The planner is a job recorded for the admin team, for all admin requests.</p>
 
-<h3>Reports</h3>
+<h3>
+<a name="reports" class="anchor" href="#reports"><span class="octicon octicon-link"></span></a>Reports</h3>
 
 <p>The reports module feeds data from the stats module, analyses it and generates reports based on the given data.</p>
 
-<h3>Teams</h3>
+<h3>
+<a name="teams" class="anchor" href="#teams"><span class="octicon octicon-link"></span></a>Teams</h3>
 
 <p>The Teams module is the manager for the teams and the targets that apply to all the agents in that team</p>
 
-<h3>Stats</h3>
+<h3>
+<a name="stats" class="anchor" href="#stats"><span class="octicon octicon-link"></span></a>Stats</h3>
 
 <p>The stats module records the daily stats produced by the agents as well as weekly and monthly stats. All of this data, feeds into the reports and academy modules.</p>
       </section>
-      <footer>
-        <p>Project maintained by <a href="https://github.com/davidsivocha">davidsivocha</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Osiris - Information Management System maintained by <a href="https://github.com/davidsivocha">davidsivocha</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
-    
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-43986260-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
   </body>
 </html>
